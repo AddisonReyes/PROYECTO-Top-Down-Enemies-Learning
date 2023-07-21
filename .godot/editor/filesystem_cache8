@@ -1,7 +1,10 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1689948263
+::res://::1689949026
 icon.svg::CompressedTexture2D::4177581521633267732::1689948194::1689948200::1::::<><>::
-::res://Nodes/::1689948243
-::res://Scenes/::1689948232
+::res://Audio/::1689948269
+::res://Scenes/::1689955105
+Player.tscn::PackedScene::89635038922512345::1689955232::0::1::::<><>::res://Scenes/Player.gd
+Player.gd::GDScript::-1::1689955232::0::1::::<>CharacterBody2D<>::
+Test_Scene.tscn::PackedScene::8252805856503311317::1689955105::0::1::::<><>::uid://bjojnbylojrt::::res://Scenes/Player.tscn
 ::res://Scripts/::1689948263
 ::res://Sprites/::1689948248
