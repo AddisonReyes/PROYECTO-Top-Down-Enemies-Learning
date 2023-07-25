@@ -3,16 +3,20 @@ extends CharacterBody2D
 
 const PIXELS_TO_MOVE = 1.6
 const TP_MULTIPLIER = 26
-const SPEED = 260.0
-
+const SPEED = 200.0
 var can_tp = true
+
+var invulnerable = false
+var health = 60
 
 
 func _physics_process(delta):
 	var direction = _player_movement()
+	$CollisionShape2D.disabled = false
 	
 	if Input.is_key_pressed(KEY_SPACE) and can_tp:
 		direction = _player_teleport(direction)
+		$CollisionShape2D.disabled = true
 	
 	if direction[0]: velocity.x = direction[0] * SPEED
 	else: velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -21,6 +25,18 @@ func _physics_process(delta):
 	else: velocity.y = move_toward(velocity.y, 0, SPEED)
 
 	move_and_slide()
+	
+	
+func take_damage(damage):
+	if health <= 0:
+		print("Moriste")
+		
+	if invulnerable != true:
+		print("Te han atacado")
+		health -= damage
+			
+		invulnerable = true
+		$InvulnerableTimer.start()
 
 
 func _player_teleport(direction):
@@ -83,3 +99,7 @@ func _player_movement():
 
 func _on_timer_timeout():
 	can_tp = true
+
+
+func _on_invulnerable_timer_timeout():
+	invulnerable = false

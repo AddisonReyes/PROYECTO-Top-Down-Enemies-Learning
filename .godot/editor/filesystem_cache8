@@ -1,10 +1,16 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1689949026
+::res://::1690303475
 icon.svg::CompressedTexture2D::4177581521633267732::1689948194::1689948200::1::::<><>::
 ::res://Audio/::1689948269
-::res://Scenes/::1689955105
-Player.tscn::PackedScene::89635038922512345::1689955232::0::1::::<><>::res://Scenes/Player.gd
-Player.gd::GDScript::-1::1689955232::0::1::::<>CharacterBody2D<>::
-Test_Scene.tscn::PackedScene::8252805856503311317::1689955105::0::1::::<><>::uid://bjojnbylojrt::::res://Scenes/Player.tscn
-::res://Scripts/::1689948263
-::res://Sprites/::1689948248
+::res://Scenes/::1690303475
+enemy_1.gd::GDScript::-1::1690300452::0::1::::<>CharacterBody2D<>::
+enemy_1.tscn::PackedScene::5598465248929198881::1690303478::0::1::::<><>::res://Scenes/enemy_1.gd
+enemy_2.tscn::PackedScene::2194871531758891385::1690303434::0::1::::<><>::
+Player.tscn::PackedScene::89635038922512345::1690303433::0::1::::<><>::res://Scripts/Player.gd
+Test_Scene.tscn::PackedScene::8252805856503311317::1690303433::0::1::::<><>::uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://bthqujcwr4tf::::res://Sprites/Avys's Dungeon tileset.png<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://rj7ybvt0b07q::::res://Scenes/wall_2.tscn
+wall_2.tscn::PackedScene::1213775630316326508::1690302127::0::1::::<><>::
+::res://Scripts/::1690303475
+enemy_2.gd::GDScript::-1::1690303465::0::1::::<>CharacterBody2D<>::
+Player.gd::GDScript::-1::1690300425::0::1::::<>CharacterBody2D<>::
+::res://Sprites/::1690233857
+Avys's Dungeon tileset.png::CompressedTexture2D::109866677108226919::1690233855::1690233857::1::::<><>::

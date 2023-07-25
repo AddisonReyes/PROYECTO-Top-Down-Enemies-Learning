@@ -1,4 +1,7 @@
-res://Scenes/Player.tscn
-res://Scenes/Player.gd
+res://Scenes/enemy_1.tscn
+res://Scenes/enemy_1.gd
 res://Scenes/Test_Scene.tscn
+res://Scenes/Player.tscn
 res://Scripts/Player.gd
+res://Scenes/enemy_2.tscn
+res://Scripts/enemy_1.gd

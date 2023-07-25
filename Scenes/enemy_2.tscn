@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://6jhhi0tmk6nt"]
+
+[ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_mqhjq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6vi6g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rrjc8"]
+radius = 285.175
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3n70v"]
+radius = 229.02
+
+[node name="Enemy2" type="CharacterBody2D"]
+script = ExtResource("1_mqhjq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.627451, 0.278431, 0.552941, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_6vi6g")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(10, 10)
+shape = SubResource("CircleShape2D_rrjc8")
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(10, 10)
+shape = SubResource("CircleShape2D_3n70v")
+debug_color = Color(1, 0, 0.0705882, 0.419608)
