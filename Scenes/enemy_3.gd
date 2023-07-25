@@ -1,19 +1,18 @@
 extends CharacterBody2D
-class_name Enemy2
+class_name Enemy3
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
-const SPEED = 290.0
+const SPEED = 260.0
 var player_position
 var target_position
 var state = "Idle"
 var player
 
-var health = 30
-var damageRange = 10
-var damageMelee = 5
+var health = 20
+var damageRange = 15
 
 var can_shoot = true
-var fireRate = 1.5
+var fireRate = 0.9
 
 
 func _ready():
@@ -38,8 +37,16 @@ func _physics_process(delta):
 		$Node2D.look_at(player_position)
 		shoot()
 		
-	if state == "AttackMelee":
-		player.take_damage(damageMelee)
+	if state == "RunRange":
+		player_position = player.position
+		target_position = (player_position - position).normalized()
+		
+		if position.distance_to(player_position) > 3:
+			var new_position = Vector2(-target_position.x, -target_position.y)
+			velocity = Vector2(new_position * SPEED)
+			
+			move_and_slide()
+			look_at(player_position)
 		
 	if state == "Killed":
 		queue_free()
@@ -92,13 +99,13 @@ func _on_attack_range_body_exited(body):
 		state = "Chase"
 
 
-func _on_melee_range_body_entered(body):
+func _on_run_range_body_entered(body):
 	if body == player and state == "AttackRange":
-		state = "AttackMelee"
+		state = "RunRange"
 
 
-func _on_melee_range_body_exited(body):
-	if body == player and state == "AttackMelee":
+func _on_run_range_body_exited(body):
+	if body == player and state == "RunRange":
 		state = "AttackRange"
 
 

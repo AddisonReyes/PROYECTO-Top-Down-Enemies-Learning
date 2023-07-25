@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Enemy1
 
 const SPEED = 325.0
 var player_position
@@ -31,10 +31,24 @@ func _physics_process(delta):
 		
 	if state == "Attack":
 		player.take_damage(damage)
+		
+	if state == "Killed":
+		queue_free()
 
 
 func _process(delta):
 	pass
+
+
+func take_damage(damage):
+	if health <= 0:
+		state = "Killed"
+	
+	if state == "Idle":
+		state = "Chase"
+
+	health -= damage
+
 
 func _on_area_2d_body_entered(body):
 	if body == player and state == "Idle":

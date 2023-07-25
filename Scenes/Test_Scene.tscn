@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dptyrh0uiqqkb"]
+[gd_scene load_steps=10 format=3 uid="uid://dptyrh0uiqqkb"]
 
 [ext_resource type="PackedScene" uid="uid://bjojnbylojrt" path="res://Scenes/Player.tscn" id="1_d7fjo"]
 [ext_resource type="Texture2D" uid="uid://bthqujcwr4tf" path="res://Sprites/Avys's Dungeon tileset.png" id="1_gcf80"]
 [ext_resource type="PackedScene" uid="uid://cl06503qlhrk8" path="res://Scenes/enemy_1.tscn" id="3_h5len"]
 [ext_resource type="PackedScene" uid="uid://6jhhi0tmk6nt" path="res://Scenes/enemy_2.tscn" id="4_3xk2y"]
 [ext_resource type="PackedScene" uid="uid://rj7ybvt0b07q" path="res://Scenes/wall_2.tscn" id="4_jauqm"]
+[ext_resource type="PackedScene" uid="uid://cqvpx6xwgn3bl" path="res://Scenes/enemy_3.tscn" id="5_t5y0k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0yawt"]
 texture = ExtResource("1_gcf80")
@@ -944,13 +945,16 @@ tile_set = SubResource("TileSet_eb2i5")
 format = 2
 
 [node name="Player" parent="." instance=ExtResource("1_d7fjo")]
-position = Vector2(55, 266)
+position = Vector2(2114, 266)
 
 [node name="Enemy1" parent="." instance=ExtResource("3_h5len")]
 position = Vector2(224, -269)
 
 [node name="Enemy2" parent="." instance=ExtResource("4_3xk2y")]
-position = Vector2(497, 281)
+position = Vector2(1602, -390)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_t5y0k")]
+position = Vector2(3108, 24)
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -968,16 +972,16 @@ position = Vector2(11, 113)
 shape = SubResource("RectangleShape2D_u2lbh")
 
 [node name="Wall2" parent="Walls" instance=ExtResource("4_jauqm")]
-offset_left = -674.0
-offset_top = -1136.0
-offset_right = 4.0
-offset_bottom = 4544.0
+offset_left = -928.0
+offset_top = -1144.0
+offset_right = -250.0
+offset_bottom = 4536.0
 scale = Vector2(1, 0.44)
 
 [node name="Wall5" parent="Walls" instance=ExtResource("4_jauqm")]
-offset_left = 3856.0
+offset_left = 4462.0
 offset_top = 1342.0
-offset_right = 4534.0
+offset_right = 5140.0
 offset_bottom = 7022.0
 rotation = -3.14882
 scale = Vector2(1.24359, 0.441201)

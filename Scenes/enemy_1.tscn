@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5m5t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ib73"]
-radius = 146.123
+radius = 157.003
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xjfm8"]
 radius = 33.0

@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojv8"]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(-10, -10)
 script = ExtResource("1_rfk20")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -18,11 +19,20 @@ position = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_cojv8")
 
 [node name="TPTimer" type="Timer" parent="."]
-wait_time = 1.6
+wait_time = 0.001
 one_shot = true
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(10, 10)
+
+[node name="Marker2D" type="Marker2D" parent="Node2D"]
+position = Vector2(25, 0)
+
+[node name="FireRate" type="Timer" parent="."]
 
 [connection signal="timeout" from="TPTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
