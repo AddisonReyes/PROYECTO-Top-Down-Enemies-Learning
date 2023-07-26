@@ -4,7 +4,7 @@ class_name Player
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
 const PIXELS_TO_MOVE = 1.6
-const TP_MULTIPLIER = 36
+const TP_MULTIPLIER = 46
 const SPEED = 200.0
 var can_tp = true
 
@@ -15,7 +15,7 @@ var health = 60
 
 var can_shoot = true
 
-var fireRate = 2
+var fireRate = 1.1
 var TPtime = 2
 
 

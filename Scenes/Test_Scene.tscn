@@ -945,7 +945,7 @@ tile_set = SubResource("TileSet_eb2i5")
 format = 2
 
 [node name="Player" parent="." instance=ExtResource("1_d7fjo")]
-position = Vector2(2114, 266)
+position = Vector2(478, 266)
 
 [node name="Enemy1" parent="." instance=ExtResource("3_h5len")]
 position = Vector2(224, -269)
@@ -963,7 +963,7 @@ offset_left = 1412.0
 offset_top = -80.0
 offset_right = 1434.0
 offset_bottom = 146.0
-color = Color(1, 0.545098, 1, 1)
+color = Color(0.172549, 0.0901961, 0.0156863, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Walls/Wall"]
 
@@ -1003,7 +1003,7 @@ offset_left = 2239.0
 offset_top = 201.0
 offset_right = 2261.0
 offset_bottom = 427.0
-color = Color(1, 0.545098, 1, 1)
+color = Color(0.172549, 0.0901961, 0.0156863, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Walls/Wall7"]
 
@@ -1016,7 +1016,7 @@ offset_left = 696.0
 offset_top = -249.0
 offset_right = 718.0
 offset_bottom = -23.0
-color = Color(1, 0.545098, 1, 1)
+color = Color(0.172549, 0.0901961, 0.0156863, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Walls/Wall6"]
 

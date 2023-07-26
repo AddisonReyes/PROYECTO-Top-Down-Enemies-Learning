@@ -19,7 +19,6 @@ position = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_cojv8")
 
 [node name="TPTimer" type="Timer" parent="."]
-wait_time = 0.001
 one_shot = true
 
 [node name="InvulnerableTimer" type="Timer" parent="."]

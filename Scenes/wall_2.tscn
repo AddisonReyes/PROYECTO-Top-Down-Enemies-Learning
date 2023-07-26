@@ -8,7 +8,7 @@ offset_left = -673.0
 offset_top = -476.0
 offset_right = 5.0
 offset_bottom = 5204.0
-color = Color(1, 0.545098, 1, 1)
+color = Color(0.172549, 0.0901961, 0.0156863, 1)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 

@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy2
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
-const SPEED = 290.0
+const SPEED = 295.0
 var player_position
 var target_position
 var state = "Idle"
@@ -23,7 +23,7 @@ func _ready():
 func _physics_process(delta):
 	if state == "Idle":
 		pass
-		
+	
 	if state == "Chase":
 		player_position = player.position
 		target_position = (player_position - position).normalized()
@@ -31,16 +31,20 @@ func _physics_process(delta):
 		if position.distance_to(player_position) > 3:
 			velocity = Vector2(target_position * SPEED)
 			
-			move_and_slide()
 			look_at(player_position)
-		
+			move_and_slide()
+	
 	if state == "AttackRange" and can_shoot:
-		$Node2D.look_at(player_position)
+		player_position = player.position
+		look_at(player_position)
 		shoot()
-		
+	
 	if state == "AttackMelee":
-		player.take_damage(damageMelee)
+		player_position = player.position
+		look_at(player_position)
 		
+		player.take_damage(damageMelee)
+	
 	if state == "Killed":
 		queue_free()
 

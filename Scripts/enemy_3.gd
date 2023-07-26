@@ -22,7 +22,7 @@ func _ready():
 func _physics_process(delta):
 	if state == "Idle":
 		pass
-		
+	
 	if state == "Chase":
 		player_position = player.position
 		target_position = (player_position - position).normalized()
@@ -30,13 +30,14 @@ func _physics_process(delta):
 		if position.distance_to(player_position) > 3:
 			velocity = Vector2(target_position * SPEED)
 			
-			move_and_slide()
 			look_at(player_position)
-		
+			move_and_slide()
+	
 	if state == "AttackRange" and can_shoot:
-		$Node2D.look_at(player_position)
+		player_position = player.position
+		look_at(player_position)
 		shoot()
-		
+	
 	if state == "RunRange":
 		player_position = player.position
 		target_position = (player_position - position).normalized()
@@ -45,8 +46,8 @@ func _physics_process(delta):
 			var new_position = Vector2(-target_position.x, -target_position.y)
 			velocity = Vector2(new_position * SPEED)
 			
-			move_and_slide()
 			look_at(player_position)
+			move_and_slide()
 		
 	if state == "Killed":
 		queue_free()

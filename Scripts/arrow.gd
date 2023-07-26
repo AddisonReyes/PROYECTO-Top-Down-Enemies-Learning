@@ -1,11 +1,9 @@
 extends CharacterBody2D
-class_name Arrow
 
 
 var arrowVelocity = Vector2(0, 0)
 var damage = 5
 var speed = 560
-
 
 func _ready():
 	$Timer.start()
@@ -24,7 +22,7 @@ func _on_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
-	if body is Player or body is Enemy1 or body is Enemy2:
+	if body is Player or body is Enemy1 or body is Enemy2 or body is Enemy3:
 		body.take_damage(damage)
-		
+	
 	queue_free()

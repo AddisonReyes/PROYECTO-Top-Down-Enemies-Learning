@@ -1,25 +1,25 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqvpx6xwgn3bl"]
 
-[ext_resource type="Script" path="res://Scenes/enemy_3.gd" id="1_o1jj7"]
+[ext_resource type="Script" path="res://Scripts/enemy_3.gd" id="1_abrmj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilogb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j54vh"]
-radius = 413.174
+radius = 398.001
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w13xw"]
-radius = 283.016
+radius = 350.07
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtqat"]
-radius = 117.004
+radius = 204.061
 
 [node name="Enemy3" type="CharacterBody2D"]
-script = ExtResource("1_o1jj7")
+script = ExtResource("1_abrmj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 20.0
 offset_bottom = 20.0
-color = Color(0.627451, 0.278431, 0.552941, 1)
+color = Color(0.831373, 0, 0.403922, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(10, 10)
