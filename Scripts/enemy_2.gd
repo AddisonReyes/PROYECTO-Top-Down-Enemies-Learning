@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name Enemy2
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
+#const ShieldPath = preload("res://Scenes/shield.tscn")
+
 const SPEED = 295.0
 var player_position
 var target_position
@@ -13,11 +15,12 @@ var damageRange = 10
 var damageMelee = 5
 
 var can_shoot = true
-var fireRate = 1.5
+var fireRate = 1
 
 
 func _ready():
 	player = get_parent().get_node("Player")
+	deactivate_shield()
 
 
 func _physics_process(delta):
@@ -34,16 +37,17 @@ func _physics_process(delta):
 			look_at(player_position)
 			move_and_slide()
 	
-	if state == "AttackRange" and can_shoot:
-		player_position = player.position
-		look_at(player_position)
-		shoot()
-	
-	if state == "AttackMelee":
+	if state == "AttackRange":
 		player_position = player.position
 		look_at(player_position)
 		
-		player.take_damage(damageMelee)
+		if can_shoot:
+			shoot()
+	
+	if state == "AttackMelee":
+		player_position = player.position
+		$Shield.look_at(player_position)
+		look_at(player_position)
 	
 	if state == "Killed":
 		queue_free()
@@ -61,6 +65,7 @@ func take_damage(damage):
 		state = "Chase"
 
 	health -= damage
+	print("au")
 
 
 func shoot():
@@ -74,6 +79,17 @@ func shoot():
 	can_shoot = false
 	$FireRate.wait_time = fireRate
 	$FireRate.start()
+
+
+func deactivate_shield():
+	var shield_position = player.position
+	$Shield.deactivate_shield()
+	$Shield.look_at(-shield_position)
+
+
+func activate_shield():
+	var shield_position = player.position
+	$Shield.activate_shield()
 
 
 func _on_area_2d_body_entered(body):
@@ -99,11 +115,13 @@ func _on_attack_range_body_exited(body):
 func _on_melee_range_body_entered(body):
 	if body == player and state == "AttackRange":
 		state = "AttackMelee"
+		activate_shield()
 
 
 func _on_melee_range_body_exited(body):
 	if body == player and state == "AttackMelee":
 		state = "AttackRange"
+		deactivate_shield()
 
 
 func _on_fire_rate_timeout():

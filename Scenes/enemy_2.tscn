@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://6jhhi0tmk6nt"]
+[gd_scene load_steps=7 format=3 uid="uid://6jhhi0tmk6nt"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_mqhjq"]
+[ext_resource type="PackedScene" uid="uid://cbshtnvko3hvh" path="res://Scenes/shield.tscn" id="2_ougkh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vi6g"]
 
@@ -11,7 +12,7 @@ radius = 347.006
 radius = 226.009
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxlyd"]
-radius = 25.0
+radius = 76.0263
 
 [node name="Enemy2" type="CharacterBody2D"]
 script = ExtResource("1_mqhjq")
@@ -52,6 +53,8 @@ position = Vector2(10, 10)
 
 [node name="Marker2D" type="Marker2D" parent="Node2D"]
 position = Vector2(25, 0)
+
+[node name="Shield" parent="." instance=ExtResource("2_ougkh")]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

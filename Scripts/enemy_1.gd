@@ -18,7 +18,7 @@ func _ready():
 func _physics_process(delta):
 	if state == "Idle":
 		pass
-		
+	
 	if state == "Chase":
 		player_position = player.position
 		target_position = (player_position - position).normalized()

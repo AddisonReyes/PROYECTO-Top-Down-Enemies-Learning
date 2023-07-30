@@ -1,9 +1,10 @@
+Shield
 CollisionShape2D
 CharacterBody2D
+ColorRect
+Node2D
 Timer
 Area2D
-Node2D
-ColorRect
 Marker2D
 Camera2D
 VisibleOnScreenEnabler2D

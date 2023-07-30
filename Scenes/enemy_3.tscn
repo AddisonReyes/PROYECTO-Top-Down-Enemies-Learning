@@ -8,10 +8,10 @@
 radius = 398.001
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w13xw"]
-radius = 350.07
+radius = 321.039
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtqat"]
-radius = 204.061
+radius = 25.0
 
 [node name="Enemy3" type="CharacterBody2D"]
 script = ExtResource("1_abrmj")
@@ -38,9 +38,9 @@ position = Vector2(10, 10)
 shape = SubResource("CircleShape2D_w13xw")
 debug_color = Color(1, 0, 0.0705882, 0.419608)
 
-[node name="RunRange" type="Area2D" parent="."]
+[node name="MeleeRange" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RunRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 position = Vector2(10, 10)
 shape = SubResource("CircleShape2D_mtqat")
 debug_color = Color(0.952941, 0, 0.545098, 0.419608)
@@ -57,6 +57,6 @@ position = Vector2(25, 0)
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
-[connection signal="body_entered" from="RunRange" to="." method="_on_run_range_body_entered"]
-[connection signal="body_exited" from="RunRange" to="." method="_on_run_range_body_exited"]
+[connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
+[connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

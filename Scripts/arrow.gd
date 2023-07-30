@@ -22,7 +22,7 @@ func _on_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
-	if body is Player or body is Enemy1 or body is Enemy2 or body is Enemy3:
+	if body is Player or body is Enemy1 or body is Enemy2 or body is Enemy3 or body is Shield:
 		body.take_damage(damage)
 	
 	queue_free()

@@ -10,6 +10,7 @@ var player
 
 var health = 20
 var damageRange = 15
+var damageMelee = 5
 
 var can_shoot = true
 var fireRate = 0.9
@@ -38,16 +39,11 @@ func _physics_process(delta):
 		look_at(player_position)
 		shoot()
 	
-	if state == "RunRange":
+	if state == "AttackMelee":
 		player_position = player.position
-		target_position = (player_position - position).normalized()
+		look_at(player_position)
 		
-		if position.distance_to(player_position) > 3:
-			var new_position = Vector2(-target_position.x, -target_position.y)
-			velocity = Vector2(new_position * SPEED)
-			
-			look_at(player_position)
-			move_and_slide()
+		player.take_damage(damageMelee)
 		
 	if state == "Killed":
 		queue_free()
@@ -100,13 +96,13 @@ func _on_attack_range_body_exited(body):
 		state = "Chase"
 
 
-func _on_run_range_body_entered(body):
+func _on_melee_range_body_entered(body):
 	if body == player and state == "AttackRange":
-		state = "RunRange"
+		state = "AttackMelee"
 
 
-func _on_run_range_body_exited(body):
-	if body == player and state == "RunRange":
+func _on_melee_range_body_exited(body):
+	if body == player and state == "AttackMelee":
 		state = "AttackRange"
 
 

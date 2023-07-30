@@ -24,7 +24,7 @@ func _physics_process(delta):
 		print("Moriste")
 		alive = false
 		hide()
-		
+	
 	if alive:
 		var direction = _player_movement()
 		$CollisionShape2D.disabled = false
