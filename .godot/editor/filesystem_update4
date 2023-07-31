@@ -1,10 +1,9 @@
-res://Scenes/enemy_3.tscn
-res://Scripts/enemy_3.gd
-res://Scenes/enemy_2.tscn
 res://Scenes/Test_Scene.tscn
 res://Scenes/Player.tscn
 res://Scenes/enemy_1.tscn
-res://Scripts/enemy_2.gd
+res://Scenes/enemy_2.tscn
+res://Scenes/enemy_3.tscn
 res://Scenes/shield.tscn
+res://Scripts/enemy_2.gd
 res://Scripts/shield.gd
-res://Scripts/arrow.gd
+res://Scripts/enemy_3.gd

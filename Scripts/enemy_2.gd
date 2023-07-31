@@ -44,7 +44,7 @@ func _physics_process(delta):
 		if can_shoot:
 			shoot()
 	
-	if state == "AttackMelee":
+	if state == "ShieldRange":
 		player_position = player.position
 		$Shield.look_at(player_position)
 		look_at(player_position)
@@ -64,8 +64,8 @@ func take_damage(damage):
 	if state == "Idle":
 		state = "Chase"
 
-	health -= damage
-	print("au")
+	if state != "ShieldRange":
+		health -= damage
 
 
 func shoot():
@@ -82,13 +82,10 @@ func shoot():
 
 
 func deactivate_shield():
-	var shield_position = player.position
 	$Shield.deactivate_shield()
-	$Shield.look_at(-shield_position)
 
 
 func activate_shield():
-	var shield_position = player.position
 	$Shield.activate_shield()
 
 
@@ -114,12 +111,12 @@ func _on_attack_range_body_exited(body):
 
 func _on_melee_range_body_entered(body):
 	if body == player and state == "AttackRange":
-		state = "AttackMelee"
+		state = "ShieldRange"
 		activate_shield()
 
 
 func _on_melee_range_body_exited(body):
-	if body == player and state == "AttackMelee":
+	if body == player and state == "ShieldRange":
 		state = "AttackRange"
 		deactivate_shield()
 

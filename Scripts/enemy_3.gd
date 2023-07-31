@@ -34,10 +34,12 @@ func _physics_process(delta):
 			look_at(player_position)
 			move_and_slide()
 	
-	if state == "AttackRange" and can_shoot:
+	if state == "AttackRange":
 		player_position = player.position
 		look_at(player_position)
-		shoot()
+		
+		if can_shoot:
+			shoot()
 	
 	if state == "AttackMelee":
 		player_position = player.position
