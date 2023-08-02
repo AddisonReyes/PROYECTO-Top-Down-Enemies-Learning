@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy3
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
-const SPEED = 260.0
+const SPEED = 140.0
 var player_position
 var target_position
 var state = "Idle"

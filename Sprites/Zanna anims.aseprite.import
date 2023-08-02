@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bthqujcwr4tf"
-path="res://.godot/imported/Avys's Dungeon tileset.png-9de01d05ae99f8320bd00a03e2e8758d.ctex"
+uid="uid://bl7t5mj8ua7mp"
+path="res://.godot/imported/Zanna anims.aseprite-64c68bb62888bd3b58fd637bf7344986.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Avys's Dungeon tileset.png"
-dest_files=["res://.godot/imported/Avys's Dungeon tileset.png-9de01d05ae99f8320bd00a03e2e8758d.ctex"]
+source_file="res://Sprites/Zanna anims.aseprite"
+dest_files=["res://.godot/imported/Zanna anims.aseprite-64c68bb62888bd3b58fd637bf7344986.ctex"]
 
 [params]
 

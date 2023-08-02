@@ -4,13 +4,13 @@ class_name Player
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
 const PIXELS_TO_MOVE = 1.6
-const TP_MULTIPLIER = 46
-const SPEED = 200.0
+const TP_MULTIPLIER = 26
+const SPEED = 110.0
 var can_tp = true
 
 var invulnerable = false
 var alive = true
-var damage = 5
+var damage = 10
 var health = 60
 
 var can_shoot = true
@@ -27,11 +27,9 @@ func _physics_process(delta):
 	
 	if alive:
 		var direction = _player_movement()
-		$CollisionShape2D.disabled = false
 		
 		if Input.is_key_pressed(KEY_SPACE) and can_tp:
 			direction = _player_teleport(direction)
-			$CollisionShape2D.disabled = true
 		
 		if direction[0]: velocity.x = direction[0] * SPEED
 		else: velocity.x = move_toward(velocity.x, 0, SPEED)

@@ -15,11 +15,19 @@ run/main_scene="res://Scenes/Test_Scene.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[aseprite_importers]
+
+aseprite_executable_path="C:/Program Files (x86)/Steam/steamapps/common/Aseprite/Aseprite.exe"
+
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/nklbdev.aseprite_importers/plugin.cfg")
 
 [rendering]
 

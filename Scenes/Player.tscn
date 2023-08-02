@@ -3,19 +3,24 @@
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_rfk20"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojv8"]
+size = Vector2(12, 12)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 position = Vector2(-10, -10)
 script = ExtResource("1_rfk20")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(16, 16)
+zoom = Vector2(2, 2)
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 22.0
+offset_bottom = 22.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(10, 10)
+position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_cojv8")
 
 [node name="TPTimer" type="Timer" parent="."]
@@ -25,10 +30,10 @@ one_shot = true
 wait_time = 2.0
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(10, 10)
+position = Vector2(16, 16)
 
 [node name="Marker2D" type="Marker2D" parent="Node2D"]
-position = Vector2(25, 0)
+position = Vector2(14, 0)
 
 [node name="FireRate" type="Timer" parent="."]
 

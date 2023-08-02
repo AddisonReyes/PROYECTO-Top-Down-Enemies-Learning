@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Enemy1
 
-const SPEED = 335.0
+const SPEED = 185.5
 var player_position
 var target_position
 var state = "Idle"

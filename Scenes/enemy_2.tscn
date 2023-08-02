@@ -4,57 +4,59 @@
 [ext_resource type="PackedScene" uid="uid://cbshtnvko3hvh" path="res://Scenes/shield.tscn" id="2_ougkh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vi6g"]
+size = Vector2(12, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rrjc8"]
-radius = 347.006
+radius = 228.055
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3n70v"]
-radius = 226.009
+radius = 183.003
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxlyd"]
-radius = 76.0263
+radius = 58.0345
 
 [node name="Enemy2" type="CharacterBody2D"]
 script = ExtResource("1_mqhjq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 20.0
-offset_bottom = 20.0
+offset_right = 12.0
+offset_bottom = 12.0
 color = Color(0.509804, 0.227451, 0.545098, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(10, 10)
+position = Vector2(6, 6)
 shape = SubResource("RectangleShape2D_6vi6g")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(6, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(10, 10)
 shape = SubResource("CircleShape2D_rrjc8")
 
 [node name="AttackRange" type="Area2D" parent="."]
+position = Vector2(6, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-position = Vector2(10, 10)
 shape = SubResource("CircleShape2D_3n70v")
 debug_color = Color(1, 0, 0.0705882, 0.419608)
 
 [node name="MeleeRange" type="Area2D" parent="."]
+position = Vector2(6, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
-position = Vector2(10, 10)
 shape = SubResource("CircleShape2D_rxlyd")
 debug_color = Color(0.952941, 0, 0.545098, 0.419608)
 
 [node name="FireRate" type="Timer" parent="."]
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(10, 10)
+position = Vector2(6, 6)
 
 [node name="Marker2D" type="Marker2D" parent="Node2D"]
-position = Vector2(25, 0)
+position = Vector2(14, 0)
 
 [node name="Shield" parent="." instance=ExtResource("2_ougkh")]
+position = Vector2(6, 6)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

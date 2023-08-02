@@ -1,23 +1,43 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1690741444
+::res://::1690942891
 arrow.tscn::PackedScene::1583749136378910773::1690379705::0::1::::<><>::res://Scripts/arrow.gd
 icon.svg::CompressedTexture2D::4177581521633267732::1689948194::1689948200::1::::<><>::
+README.md::TextFile::-1::1690942564::0::1::::<><>::
+README.ru.md::TextFile::-1::1690942564::0::1::::<><>::
+::res://addons/::1690942564
+::res://addons/nklbdev.aseprite_importers/::1690942568
+aseprite_image_format_loader_extension.gd::GDScript::-1::1690942564::0::1::::<>ImageFormatLoaderExtension<>::
+common.gd::GDScript::-1::1690942564::0::1::::<>Object<>::
+editor_plugin.gd::GDScript::-1::1690942564::0::1::::<>EditorPlugin<>::
+icon.png::CompressedTexture2D::2503417493381309461::1690942564::1690942568::1::::<><>::
+plugin.cfg::TextFile::-1::1690942564::0::1::::<><>::
+::res://addons/nklbdev.aseprite_importers/editor_import_plugins/::1690942564
+animated_sprite_2d.gd::GDScript::-1::1690942564::0::1::::<><>::
+animated_sprite_3d.gd::GDScript::-1::1690942564::0::1::::<><>::
+sprite_2d.gd::GDScript::-1::1690942564::0::1::::<><>::
+sprite_3d.gd::GDScript::-1::1690942564::0::1::::<><>::
+sprite_frames.gd::GDScript::-1::1690942564::0::1::::<><>::
+texture_rect.gd::GDScript::-1::1690942564::0::1::::<><>::
+_animation_importer_base.gd::GDScript::-1::1690942564::0::1::::<><>::
+_importer_base.gd::GDScript::-1::1690942564::0::1::::<>EditorImportPlugin<>::
 ::res://Audio/::1689948269
-::res://Scenes/::1690740116
-arrow.tscn::PackedScene::1583749136378910773::1690388626::0::1::::<><>::res://Scripts/arrow.gd
-enemy_1.tscn::PackedScene::5598465248929198881::1690740046::0::1::::<><>::res://Scripts/enemy_1.gd
-enemy_2.tscn::PackedScene::2194871531758891385::1690740116::0::1::::<><>::res://Scripts/enemy_2.gd<>uid://cbshtnvko3hvh::::res://Scenes/shield.tscn
-enemy_3.tscn::PackedScene::5940168291343781861::1690740046::0::1::::<><>::res://Scripts/enemy_3.gd
-Player.tscn::PackedScene::89635038922512345::1690740046::0::1::::<><>::res://Scripts/Player.gd
-shield.tscn::PackedScene::4880648675349485613::1690740046::0::1::::<><>::res://Scripts/shield.gd
-Test_Scene.tscn::PackedScene::8252805856503311317::1690740046::0::1::::<><>::uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://bthqujcwr4tf::::res://Sprites/Avys's Dungeon tileset.png<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://rj7ybvt0b07q::::res://Scenes/wall_2.tscn<>uid://cqvpx6xwgn3bl::::res://Scenes/enemy_3.tscn
+::res://Scenes/::1690942891
+arrow.tscn::PackedScene::1583749136378910773::1690933246::0::1::::<><>::res://Scripts/arrow.gd
+enemy_1.tscn::PackedScene::5598465248929198881::1690942253::0::1::::<><>::res://Scripts/enemy_1.gd
+enemy_2.tscn::PackedScene::2194871531758891385::1690942253::0::1::::<><>::res://Scripts/enemy_2.gd<>uid://cbshtnvko3hvh::::res://Scenes/shield.tscn
+enemy_3.tscn::PackedScene::5940168291343781861::1690942253::0::1::::<><>::res://Scripts/enemy_3.gd
+Player.tscn::PackedScene::89635038922512345::1690942253::0::1::::<><>::res://Scripts/Player.gd
+shield.tscn::PackedScene::4880648675349485613::1690942253::0::1::::<><>::res://Scripts/shield.gd
+Test_Scene.tscn::PackedScene::8252805856503311317::1690942253::0::1::::<><>::uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>uid://blfaxh6a3dext::::res://Sprites/Avys's Dungeon obstacles tilesett.png<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://cqvpx6xwgn3bl::::res://Scenes/enemy_3.tscn
 wall_2.tscn::PackedScene::1213775630316326508::1690388626::0::1::::<><>::
-::res://Scripts/::1690739919
-arrow.gd::GDScript::-1::1690732967::0::1::::<>CharacterBody2D<>::
-enemy_1.gd::GDScript::-1::1690410599::0::1::::Enemy1<>CharacterBody2D<>::
-enemy_2.gd::GDScript::-1::1690739919::0::1::::Enemy2<>CharacterBody2D<>::
-enemy_3.gd::GDScript::-1::1690731116::0::1::::Enemy3<>CharacterBody2D<>::
-Player.gd::GDScript::-1::1690410599::0::1::::Player<>CharacterBody2D<>::
-shield.gd::GDScript::-1::1690739733::0::1::::Shield<>Node2D<>::
-::res://Sprites/::1690233857
-Avys's Dungeon tileset.png::CompressedTexture2D::109866677108226919::1690233855::1690233857::1::::<><>::
+::res://Scripts/::1690927956
+arrow.gd::GDScript::-1::1690927945::0::1::::<>CharacterBody2D<>::
+enemy_1.gd::GDScript::-1::1690924684::0::1::::Enemy1<>CharacterBody2D<>::
+enemy_2.gd::GDScript::-1::1690924656::0::1::::Enemy2<>CharacterBody2D<>::
+enemy_3.gd::GDScript::-1::1690924661::0::1::::Enemy3<>CharacterBody2D<>::
+Player.gd::GDScript::-1::1690927956::0::1::::Player<>CharacterBody2D<>::
+shield.gd::GDScript::-1::1690761560::0::1::::Shield<>Node2D<>::
+::res://Sprites/::1690942891
+Avys's Dungeon obstacles tilesett.png::CompressedTexture2D::3168861341331497417::1690922242::1690922243::1::::<><>::
+Avys's Dungeon tilesett.png::CompressedTexture2D::605054951039964672::1690922610::1690922610::1::::<><>::
+Zanna anims.aseprite::CompressedTexture2D::3225765894230654407::1690942886::1690942893::1::::<><>::

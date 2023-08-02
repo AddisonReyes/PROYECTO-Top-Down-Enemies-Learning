@@ -1,12 +1,12 @@
+TileMap
+Node2D
 Area2D
 Marker2D
 Shield
 CollisionShape2D
 CharacterBody2D
 ColorRect
-Node2D
 Timer
 Camera2D
 VisibleOnScreenEnabler2D
 RayCast2D
-TileMap

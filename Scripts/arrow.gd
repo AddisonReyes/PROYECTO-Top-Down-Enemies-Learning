@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 var arrowVelocity = Vector2(0, 0)
 var damage = 5
-var speed = 560
+var speed = 600
 
 func _ready():
 	$Timer.start()

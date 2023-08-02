@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/shield.gd" id="1_vxnfe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ca3d4"]
-size = Vector2(62, 30.0007)
+size = Vector2(58.0001, 17.0004)
 
 [node name="Shield" type="Node2D"]
 position = Vector2(10, 10)
@@ -12,16 +12,17 @@ script = ExtResource("1_vxnfe")
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="CharacterBody2D"]
-offset_left = 21.0
+offset_left = 13.0
 offset_top = -29.0
-offset_right = 27.0
+offset_right = 19.0
 offset_bottom = 29.0
+scale = Vector2(0.64, 1)
 color = Color(0, 0.627451, 1, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(14.9997, -0.00909996)
+position = Vector2(8.49984, 0.000980377)
 rotation = -1.57145
-scale = Vector2(0.999999, 0.999999)
+scale = Vector2(0.999998, 0.999998)
 shape = SubResource("RectangleShape2D_ca3d4")
 debug_color = Color(0.980392, 0, 0.364706, 0.419608)

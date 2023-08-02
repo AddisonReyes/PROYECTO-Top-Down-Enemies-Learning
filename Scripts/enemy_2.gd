@@ -4,7 +4,7 @@ class_name Enemy2
 const ArrowPath = preload("res://Scenes/arrow.tscn")
 #const ShieldPath = preload("res://Scenes/shield.tscn")
 
-const SPEED = 295.0
+const SPEED = 157.5
 var player_position
 var target_position
 var state = "Idle"
