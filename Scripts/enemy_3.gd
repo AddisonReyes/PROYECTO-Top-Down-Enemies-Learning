@@ -1,12 +1,15 @@
 extends CharacterBody2D
 class_name Enemy3
 
+@onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 const ArrowPath = preload("res://Scenes/arrow.tscn")
-const SPEED = 140.0
-var player_position
-var target_position
+const SPEED = 150.0
 var state = "Idle"
 var player
+
+var player_position
+var lookingRight = true
+var lookingDown = true
 
 var health = 20
 var damageRange = 15
@@ -22,30 +25,50 @@ func _ready():
 
 func _physics_process(delta):
 	if state == "Idle":
-		pass
+		if lookingDown:
+			$Anims.play("Idle")
+		else:
+			$Anims.play("Idle2")
+			
+		$Node2D.rotation = 0
 	
 	if state == "Chase":
-		player_position = player.position
-		target_position = (player_position - position).normalized()
+		var dir = to_local(nav_agent.get_next_path_position()).normalized()
 		
-		if position.distance_to(player_position) > 3:
-			velocity = Vector2(target_position * SPEED)
-			
-			look_at(player_position)
-			move_and_slide()
+		if dir[0] > 0: lookingRight = true
+		else: lookingRight = false
+		
+		if dir[1] > 0: lookingDown = true
+		else: lookingDown = false
+		
+		if lookingDown: $Anims.play("Walk")
+		else: $Anims.play("Walk2")
+				
+		if lookingRight: $Anims.flip_h = false
+		else: $Anims.flip_h = true
+		
+		velocity = dir * SPEED
+		move_and_slide()
 	
 	if state == "AttackRange":
 		player_position = player.position
-		look_at(player_position)
+		$Node2D.look_at(player_position)
+		
+		if lookingDown:
+			$Anims.play("Idle")
+		else:
+			$Anims.play("Idle2")
 		
 		if can_shoot:
 			shoot()
 	
 	if state == "AttackMelee":
-		player_position = player.position
-		look_at(player_position)
-		
 		player.take_damage(damageMelee)
+		
+		if lookingDown:
+			$Anims.play("Idle")
+		else:
+			$Anims.play("Idle2")
 		
 	if state == "Killed":
 		queue_free()
@@ -70,12 +93,17 @@ func shoot():
 	get_parent().add_child(arrow)
 	
 	arrow.position = $Node2D/Marker2D.global_position
+	arrow.direction = $Node2D/direction.global_position
 	arrow.arrowVelocity = player.position - arrow.position
 	arrow.damage = damageRange
 	
 	can_shoot = false
 	$FireRate.wait_time = fireRate
 	$FireRate.start()
+
+
+func makepath() -> void:
+	nav_agent.target_position = player.position
 
 
 func _on_area_2d_body_entered(body):
@@ -110,3 +138,8 @@ func _on_melee_range_body_exited(body):
 
 func _on_fire_rate_timeout():
 	can_shoot = true
+
+
+func _on_navegation_timer_timeout():
+	if state != "AttackMelee" or "AttackRange":
+		makepath()

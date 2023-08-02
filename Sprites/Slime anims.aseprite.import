@@ -1,0 +1,25 @@
+[remap]
+
+importer="Aseprite AnimatedSprite2D Import"
+type="PackedScene"
+uid="uid://dvn8nywsy3yv8"
+path="res://.godot/imported/Slime anims.aseprite-a9321063d720e420ec7840f2a778a80e.scn"
+
+[deps]
+
+source_file="res://Sprites/Slime anims.aseprite"
+dest_files=["res://.godot/imported/Slime anims.aseprite-a9321063d720e420ec7840f2a778a80e.scn"]
+
+[params]
+
+spritesheet/layout=0
+spritesheet/fixed_rows_count=1
+spritesheet/fixed_columns_count=1
+spritesheet/border_type=0
+spritesheet/trim=false
+spritesheet/ignore_empty=false
+spritesheet/merge_duplicates=false
+animation/default/name="default"
+animation/default/direction=0
+animation/default/repeat_count=0
+animation/autoplay=""

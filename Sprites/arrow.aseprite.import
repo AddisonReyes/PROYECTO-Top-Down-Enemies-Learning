@@ -1,0 +1,25 @@
+[remap]
+
+importer="Aseprite AnimatedSprite2D Import"
+type="PackedScene"
+uid="uid://bu3hmbc3v8o5s"
+path="res://.godot/imported/arrow.aseprite-928005dda538aa97f40d06bac9efcb7c.scn"
+
+[deps]
+
+source_file="res://Sprites/arrow.aseprite"
+dest_files=["res://.godot/imported/arrow.aseprite-928005dda538aa97f40d06bac9efcb7c.scn"]
+
+[params]
+
+spritesheet/layout=0
+spritesheet/fixed_rows_count=1
+spritesheet/fixed_columns_count=1
+spritesheet/border_type=0
+spritesheet/trim=false
+spritesheet/ignore_empty=false
+spritesheet/merge_duplicates=false
+animation/default/name="default"
+animation/default/direction=0
+animation/default/repeat_count=0
+animation/autoplay=""

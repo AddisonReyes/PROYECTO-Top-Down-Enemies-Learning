@@ -1,3 +1,6 @@
+Timer
+NavigationAgent2D
+NavigationLink2D
 TileMap
 Node2D
 Area2D
@@ -6,7 +9,6 @@ Shield
 CollisionShape2D
 CharacterBody2D
 ColorRect
-Timer
 Camera2D
 VisibleOnScreenEnabler2D
 RayCast2D

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://wtgd8ee835vd"]
+
+[ext_resource type="Script" path="res://Scripts/arrow.gd" id="1_yaege"]
+[ext_resource type="Texture2D" uid="uid://l664rbsyhq7d" path="res://Sprites/arrow.png" id="2_q10hb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21jde"]
+size = Vector2(10, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jholo"]
+size = Vector2(10, 4)
+
+[node name="Arrow" type="CharacterBody2D"]
+script = ExtResource("1_yaege")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+scale = Vector2(0.625, 0.583333)
+texture = ExtResource("2_q10hb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_21jde")
+disabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jholo")
+debug_color = Color(0.839216, 0.384314, 0, 0.419608)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

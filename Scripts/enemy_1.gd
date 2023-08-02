@@ -1,33 +1,44 @@
 extends CharacterBody2D
 class_name Enemy1
 
+
+@onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
+@onready var player = get_parent().get_node("Player")
+
 const SPEED = 185.5
-var player_position
-var target_position
 var state = "Idle"
-var player
+
+var lookingRight = true
+var lookingDown = true
 
 var health = 30
 var damage = 10
 
 
-func _ready():
-	player = get_parent().get_node("Player")
-
-
 func _physics_process(delta):
 	if state == "Idle":
-		pass
+		if lookingDown:
+			$Anims.play("Idle")
+		else:
+			$Anims.play("Idle2")
 	
 	if state == "Chase":
-		player_position = player.position
-		target_position = (player_position - position).normalized()
+		var dir = to_local(nav_agent.get_next_path_position()).normalized()
 		
-		if position.distance_to(player_position) > 3:
-			velocity = Vector2(target_position * SPEED)
-			
-			move_and_slide()
-			look_at(player_position)
+		if dir[0] > 0: lookingRight = true
+		else: lookingRight = false
+		
+		if dir[1] > 0: lookingDown = true
+		else: lookingDown = false
+		
+		if lookingDown: $Anims.play("Walk")
+		else: $Anims.play("Walk2")
+				
+		if lookingRight: $Anims.flip_h = false
+		else: $Anims.flip_h = true
+		
+		velocity = dir * SPEED
+		move_and_slide()
 		
 	if state == "Attack":
 		player.take_damage(damage)
@@ -36,8 +47,8 @@ func _physics_process(delta):
 		queue_free()
 
 
-func _process(delta):
-	pass
+func makepath() -> void:
+	nav_agent.target_position = player.position
 
 
 func take_damage(damage):
@@ -52,7 +63,9 @@ func take_damage(damage):
 
 func _on_area_2d_body_entered(body):
 	if body == player and state == "Idle":
+		print("OK")
 		state = "Chase"
+		makepath()
 
 
 func _on_area_2d_body_exited(body):
@@ -68,3 +81,9 @@ func _on_attack_range_body_entered(body):
 func _on_attack_range_body_exited(body):
 	if body == player and state == "Attack":
 		state = "Chase"
+		makepath()
+
+
+func _on_navegation_timer_timeout():
+	if state != "Attack":
+		makepath()
