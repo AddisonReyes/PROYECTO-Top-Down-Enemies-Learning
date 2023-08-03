@@ -8,6 +8,8 @@ var state = "Idle"
 var player
 
 var player_position
+var target_position
+
 var lookingRight = true
 var lookingDown = true
 
@@ -69,6 +71,16 @@ func _physics_process(delta):
 			$Anims.play("Idle")
 		else:
 			$Anims.play("Idle2")
+			
+	if state == "Run":
+		player_position = player.position
+		target_position = (player_position - position).normalized()
+
+		if position.distance_to(player_position) > 3:
+			var new_position = Vector2(-target_position.x, -target_position.y)
+			velocity = Vector2(new_position * SPEED)
+
+			move_and_slide()
 		
 	if state == "Killed":
 		queue_free()
@@ -127,13 +139,13 @@ func _on_attack_range_body_exited(body):
 
 
 func _on_melee_range_body_entered(body):
-	if body == player and state == "AttackRange":
+	if body == player and state == "Run":
 		state = "AttackMelee"
 
 
 func _on_melee_range_body_exited(body):
 	if body == player and state == "AttackMelee":
-		state = "AttackRange"
+		state = "Run"
 
 
 func _on_fire_rate_timeout():
@@ -143,3 +155,13 @@ func _on_fire_rate_timeout():
 func _on_navegation_timer_timeout():
 	if state != "AttackMelee" or "AttackRange":
 		makepath()
+
+
+func _on_escape_area_body_entered(body):
+	if body == player and state == "AttackRange":
+		state = "Run"
+
+
+func _on_escape_area_body_exited(body):
+	if body == player and state == "Run":
+		state = "AttackRange"

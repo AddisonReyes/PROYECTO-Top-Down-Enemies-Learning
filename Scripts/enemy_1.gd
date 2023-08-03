@@ -63,7 +63,6 @@ func take_damage(damage):
 
 func _on_area_2d_body_entered(body):
 	if body == player and state == "Idle":
-		print("OK")
 		state = "Chase"
 		makepath()
 

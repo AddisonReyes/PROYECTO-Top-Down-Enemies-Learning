@@ -1,12 +1,12 @@
+CollisionShape2D
+Area2D
 Timer
 NavigationAgent2D
 NavigationLink2D
 TileMap
 Node2D
-Area2D
 Marker2D
 Shield
-CollisionShape2D
 CharacterBody2D
 ColorRect
 Camera2D

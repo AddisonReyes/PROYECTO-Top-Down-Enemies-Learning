@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqvpx6xwgn3bl"]
+[gd_scene load_steps=9 format=3 uid="uid://cqvpx6xwgn3bl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_3.gd" id="1_abrmj"]
 [ext_resource type="PackedScene" uid="uid://bqbbxjhd3aqpy" path="res://Sprites/Bunnye3.aseprite" id="2_ells7"]
@@ -16,8 +16,13 @@ radius = 160.928
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtqat"]
 radius = 17.0294
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dax7x"]
+radius = 84.4329
+
 [node name="Enemy3" type="CharacterBody2D"]
 scale = Vector2(1.6, 1.6)
+collision_layer = 3
+collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_abrmj")
@@ -29,6 +34,21 @@ autoplay = "Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6, 6)
 shape = SubResource("RectangleShape2D_ilogb")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(6.25, 6.25)
+
+[node name="Bow" parent="Node2D" instance=ExtResource("3_0qv4w")]
+position = Vector2(5, 1.90735e-06)
+scale = Vector2(0.6875, 0.6875)
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Marker2D" type="Marker2D" parent="Node2D"]
+position = Vector2(15.125, 0.124998)
+
+[node name="direction" type="Marker2D" parent="Node2D"]
+position = Vector2(40.125, 0.124998)
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(6, 6)
@@ -50,22 +70,15 @@ position = Vector2(6, 6)
 shape = SubResource("CircleShape2D_mtqat")
 debug_color = Color(0.952941, 0, 0.545098, 0.419608)
 
+[node name="EscapeArea" type="Area2D" parent="."]
+position = Vector2(5.96046e-07, 5.96046e-07)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EscapeArea"]
+position = Vector2(5.625, 6.25)
+shape = SubResource("CircleShape2D_dax7x")
+debug_color = Color(0.52549, 0.572549, 0, 0.419608)
+
 [node name="FireRate" type="Timer" parent="."]
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(6, 6)
-
-[node name="Bow" parent="Node2D" instance=ExtResource("3_0qv4w")]
-position = Vector2(5, 1.90735e-06)
-scale = Vector2(0.6875, 0.6875)
-animation = &"Idle"
-autoplay = "Idle"
-
-[node name="Marker2D" type="Marker2D" parent="Node2D"]
-position = Vector2(10, 0)
-
-[node name="direction" type="Marker2D" parent="Node2D"]
-position = Vector2(21, 0)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -79,5 +92,7 @@ autostart = true
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
+[connection signal="body_entered" from="EscapeArea" to="." method="_on_escape_area_body_entered"]
+[connection signal="body_exited" from="EscapeArea" to="." method="_on_escape_area_body_exited"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
