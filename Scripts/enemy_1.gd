@@ -14,6 +14,14 @@ var lookingDown = true
 var health = 30
 var damage = 10
 
+var red = 255 / 255
+var green = 89 / 255
+var blue = 110 / 255
+var alpha = 255 / 255
+
+var color = Color(red, green, blue, alpha)
+var defaultColor = Color(1, 1, 1, 1)
+
 
 func _physics_process(delta):
 	if state == "Idle":
@@ -59,6 +67,8 @@ func take_damage(damage):
 		state = "Chase"
 
 	health -= damage
+	self.modulate = color
+	$Timer.start()
 
 
 func _on_area_2d_body_entered(body):
@@ -86,3 +96,7 @@ func _on_attack_range_body_exited(body):
 func _on_navegation_timer_timeout():
 	if state != "Attack":
 		makepath()
+
+
+func _on_timer_timeout():
+	self.modulate = defaultColor

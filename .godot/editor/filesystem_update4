@@ -1,7 +1,8 @@
-res://Scenes/arrow.tscn
 res://Scenes/Test_Scene.tscn
 res://Scenes/Player.tscn
 res://Scenes/enemy_1.tscn
 res://Scenes/enemy_2.tscn
 res://Scenes/enemy_3.tscn
 res://Scenes/shield.tscn
+res://Scripts/enemy_1.gd
+res://Scripts/enemy_2.gd

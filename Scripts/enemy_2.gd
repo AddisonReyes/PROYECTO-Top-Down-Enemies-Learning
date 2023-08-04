@@ -20,6 +20,14 @@ var damageMelee = 5
 var can_shoot = true
 var fireRate = 1
 
+var red = 255 / 255
+var green = 89 / 255
+var blue = 110 / 255
+var alpha = 255 / 255
+
+var color = Color(red, green, blue, alpha)
+var defaultColor = Color(1, 1, 1, 1)
+
 
 func _ready():
 	player = get_parent().get_node("Player")
@@ -90,7 +98,9 @@ func take_damage(damage):
 		state = "Chase"
 
 	if state != "ShieldRange":
+		self.modulate = color
 		health -= damage
+		$Timer.start()
 
 
 func shoot():
@@ -158,3 +168,7 @@ func _on_fire_rate_timeout():
 func _on_navegation_timer_timeout():
 	if state != "AttackRange" or "ShieldRange":
 		makepath()
+
+
+func _on_timer_timeout():
+	self.modulate = defaultColor

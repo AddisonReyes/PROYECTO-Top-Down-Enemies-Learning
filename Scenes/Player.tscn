@@ -24,6 +24,7 @@ position = Vector2(-0.124997, -0.124997)
 zoom = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.124997, -0.124997)
 shape = SubResource("RectangleShape2D_cojv8")
 
@@ -31,7 +32,6 @@ shape = SubResource("RectangleShape2D_cojv8")
 one_shot = true
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(-0.124997, -0.124997)

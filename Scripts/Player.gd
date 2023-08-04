@@ -4,7 +4,7 @@ class_name Player
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
 const PIXELS_TO_MOVE = 1.6
-const TP_MULTIPLIER = 26
+const TP_MULTIPLIER = 46
 const SPEED = 110.0
 var can_tp = true
 
@@ -21,12 +21,20 @@ var can_shoot = true
 var fireRate = 0.9
 var TPtime = 2
 
+var red = 255 / 255
+var green = 89 / 255
+var blue = 110 / 255
+var alpha = 255 / 255
+
+var color = Color(red, green, blue, alpha)
+var defaultColor = Color(1, 1, 1, 1)
+
 
 func _physics_process(delta):
 	if health <= 0 and alive:
 		print("Moriste")
 		alive = false
-		hide()
+		$Anims.play("Death")
 	
 	if alive:
 		var direction = _player_movement()
@@ -81,8 +89,10 @@ func _physics_process(delta):
 func take_damage(damage):
 	if invulnerable != true and alive:
 		print("Te han atacado -", damage)
+		
+		self.modulate = color
 		health -= damage
-			
+		
 		invulnerable = true
 		$InvulnerableTimer.start()
 
@@ -132,24 +142,24 @@ func _player_movement():
 	var directionx = 0
 	var directiony = 0
 	
-	if Input.is_key_pressed(KEY_A): 
+	if Input.is_key_pressed(KEY_LEFT) or Input.is_key_pressed(KEY_A): 
 		directionx = -PIXELS_TO_MOVE
 		if Input.is_key_pressed(KEY_SHIFT):
 			directionx = -PIXELS_TO_MOVE/2
 			
-	elif Input.is_key_pressed(KEY_D): 
+	elif Input.is_key_pressed(KEY_RIGHT) or Input.is_key_pressed(KEY_D): 
 		directionx = PIXELS_TO_MOVE
 		if Input.is_key_pressed(KEY_SHIFT):
 			directionx = PIXELS_TO_MOVE/2
 			
 	else: directionx = 0
 		
-	if Input.is_key_pressed(KEY_W): 
+	if Input.is_key_pressed(KEY_UP) or Input.is_key_pressed(KEY_W): 
 		directiony = -PIXELS_TO_MOVE
 		if Input.is_key_pressed(KEY_SHIFT):
 			directiony = -PIXELS_TO_MOVE/2
 			
-	elif Input.is_key_pressed(KEY_S): 
+	elif Input.is_key_pressed(KEY_DOWN) or Input.is_key_pressed(KEY_S): 
 		directiony = PIXELS_TO_MOVE
 		if Input.is_key_pressed(KEY_SHIFT):
 			directiony = PIXELS_TO_MOVE/2
@@ -165,6 +175,7 @@ func _on_timer_timeout():
 
 
 func _on_invulnerable_timer_timeout():
+	self.modulate = defaultColor
 	invulnerable = false
 
 

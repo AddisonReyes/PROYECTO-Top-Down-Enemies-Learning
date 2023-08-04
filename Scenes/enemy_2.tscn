@@ -80,6 +80,9 @@ position = Vector2(6, 6)
 wait_time = 0.5
 autostart = true
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
@@ -88,3 +91,4 @@ autostart = true
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

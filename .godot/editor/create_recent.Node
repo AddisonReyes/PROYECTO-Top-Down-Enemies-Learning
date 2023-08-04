@@ -1,6 +1,6 @@
+Timer
 CollisionShape2D
 Area2D
-Timer
 NavigationAgent2D
 NavigationLink2D
 TileMap
