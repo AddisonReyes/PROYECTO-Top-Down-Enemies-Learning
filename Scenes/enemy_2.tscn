@@ -1,21 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://6jhhi0tmk6nt"]
+[gd_scene load_steps=11 format=3 uid="uid://6jhhi0tmk6nt"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_2.gd" id="1_mqhjq"]
 [ext_resource type="PackedScene" uid="uid://dtetvr5sgxfxw" path="res://Sprites/Bunnye2.aseprite" id="2_gwdi3"]
 [ext_resource type="PackedScene" uid="uid://cbshtnvko3hvh" path="res://Scenes/shield.tscn" id="2_ougkh"]
 [ext_resource type="PackedScene" uid="uid://bbtppyvu4b231" path="res://Sprites/Bow.aseprite" id="4_duufb"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D.gd" id="4_khl4v"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D1.gd" id="5_7i5uf"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D2.gd" id="6_nqska"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="7_dowlv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vi6g"]
-size = Vector2(8, 10)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_rrjc8"]
-radius = 209.011
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_3n70v"]
-radius = 145.875
+size = Vector2(7.5, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxlyd"]
-radius = 58.0345
+radius = 42.7617
 
 [node name="Enemy2" type="CharacterBody2D"]
 scale = Vector2(1.6, 1.6)
@@ -26,16 +24,17 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_mqhjq")
 
 [node name="Anims" parent="." instance=ExtResource("2_gwdi3")]
-position = Vector2(6, 6)
+position = Vector2(4.76837e-07, 4.76837e-07)
 animation = &"Idle"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 6)
+position = Vector2(-7.45058e-08, 4.09782e-07)
+scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_6vi6g")
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(6.25, 6.25)
+position = Vector2(4.76837e-07, 4.76837e-07)
 
 [node name="Bow" parent="Node2D" instance=ExtResource("4_duufb")]
 position = Vector2(5, 1.90735e-06)
@@ -49,30 +48,71 @@ position = Vector2(15.125, 0.124998)
 [node name="direction" type="Marker2D" parent="Node2D"]
 position = Vector2(40.125, 0.124998)
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(6, 6)
+[node name="RayCastsAttack" type="Node2D" parent="."]
+position = Vector2(4.76837e-07, 4.76837e-07)
+scale = Vector2(1, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_rrjc8")
+[node name="RayCast2D" type="RayCast2D" parent="RayCastsAttack"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.57135
+scale = Vector2(0.549306, 1)
+target_position = Vector2(0, 160)
+script = ExtResource("4_khl4v")
 
-[node name="AttackRange" type="Area2D" parent="."]
-position = Vector2(6, 6)
+[node name="Ray1" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(9.812, 4.643)
+scale = Vector2(1.57667, 0.85)
+target_position = Vector2(0, 60)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-shape = SubResource("CircleShape2D_3n70v")
-debug_color = Color(1, 0, 0.0705882, 0.419608)
+[node name="Ray2" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(-9.188, 4.643)
+scale = Vector2(1.57667, 0.85)
+target_position = Vector2(0, 60)
+
+[node name="Ray3" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(9.812, 4.643)
+scale = Vector2(1.39463, 0.234228)
+target_position = Vector2(0, 60)
+
+[node name="Ray4" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(-9.188, 4.643)
+scale = Vector2(1.39463, 0.234228)
+target_position = Vector2(0, 60)
+
+[node name="RayCastsChase" type="Node2D" parent="."]
+scale = Vector2(1, 1)
+
+[node name="RayCast2D1" type="RayCast2D" parent="RayCastsChase"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.57135
+target_position = Vector2(0, 260)
+script = ExtResource("5_7i5uf")
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCastsChase"]
+rotation = -1.6057
+target_position = Vector2(0, 260)
+script = ExtResource("6_nqska")
+
+[node name="RayCast2D3" type="RayCast2D" parent="RayCastsChase"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.53589
+target_position = Vector2(0, 260)
+script = ExtResource("7_dowlv")
 
 [node name="MeleeRange" type="Area2D" parent="."]
-position = Vector2(6, 6)
+position = Vector2(4.76837e-07, 4.76837e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+position = Vector2(0.25, 0.25)
+scale = Vector2(1, 0.944175)
 shape = SubResource("CircleShape2D_rxlyd")
 debug_color = Color(0.952941, 0, 0.545098, 0.419608)
 
 [node name="FireRate" type="Timer" parent="."]
 
 [node name="Shield" parent="." instance=ExtResource("2_ougkh")]
-position = Vector2(6, 6)
+position = Vector2(4.76837e-07, 4.76837e-07)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -83,12 +123,12 @@ autostart = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
-[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[node name="ChaseTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]

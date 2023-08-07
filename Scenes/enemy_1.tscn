@@ -1,13 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl06503qlhrk8"]
+[gd_scene load_steps=8 format=3 uid="uid://cl06503qlhrk8"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_1.gd" id="1_ipvh7"]
 [ext_resource type="PackedScene" uid="uid://dvn8nywsy3yv8" path="res://Sprites/Slime anims.aseprite" id="2_37jb5"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D1.gd" id="3_bdrft"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D2.gd" id="4_ldbfx"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="5_ipvo8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5m5t"]
-size = Vector2(12, 10)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_3ib73"]
-radius = 137.125
+size = Vector2(13.75, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xjfm8"]
 radius = 15.0
@@ -21,26 +21,47 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_ipvh7")
 
 [node name="Anims" parent="." instance=ExtResource("2_37jb5")]
-position = Vector2(6, 5)
+position = Vector2(4.76837e-07, 4.76837e-07)
 animation = &"Idle"
 autoplay = "Idle"
 frame = 1
 frame_progress = 0.29313
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 6)
+position = Vector2(6.98492e-07, 1.25)
+scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_j5m5t")
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(6, 6)
+[node name="RayCasts" type="Node2D" parent="."]
+scale = Vector2(1, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_3ib73")
+[node name="RayCast2D1" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.57135
+target_position = Vector2(0, 138.75)
+collision_mask = 3
+collide_with_areas = true
+script = ExtResource("3_bdrft")
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.62316
+target_position = Vector2(0, 138.75)
+collision_mask = 3
+script = ExtResource("4_ldbfx")
+
+[node name="RayCast2D3" type="RayCast2D" parent="RayCasts"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.51844
+target_position = Vector2(0, 138.75)
+collision_mask = 3
+script = ExtResource("5_ipvo8")
 
 [node name="AttackRange" type="Area2D" parent="."]
-position = Vector2(6, 6)
+position = Vector2(4.76837e-07, 4.76837e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(-9.53674e-07, -9.53674e-07)
 shape = SubResource("CircleShape2D_xjfm8")
 debug_color = Color(1, 0, 0.0705882, 0.419608)
 
@@ -53,9 +74,11 @@ autostart = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[node name="ChaseTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]

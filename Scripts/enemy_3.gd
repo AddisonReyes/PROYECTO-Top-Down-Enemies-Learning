@@ -28,12 +28,46 @@ var alpha = 255 / 255
 var color = Color(red, green, blue, alpha)
 var defaultColor = Color(1, 1, 1, 1)
 
+var AttackRayCast = false
+var RayCast1 = false
+var RayCast2 = false
+var RayCast3 = false
+
+var ClockStarted = false
+var ForceIdle = false
+
 
 func _ready():
 	player = get_parent().get_node("Player")
 
 
 func _physics_process(delta):
+	$RayCastsAttack.look_at(player.position)
+	$RayCastsChase.look_at(player.position)
+	
+	if RayCast1 or RayCast2 or RayCast3:
+		if state == "Idle":
+			state = "Chase"
+		
+		ForceIdle = false
+		
+	else:
+		if ClockStarted != true:
+			$ChaseTimer.start()
+			ClockStarted = true
+			
+		if state == "Chase":
+			if ForceIdle:
+				state = "Idle"
+	
+	if AttackRayCast:
+		if state == "Chase":
+			state = "AttackRange"
+		
+	else:
+		if state == "AttackRange":
+			state = "Chase"
+	
 	if state == "Idle":
 		if lookingDown:
 			$Anims.play("Idle")
@@ -163,8 +197,7 @@ func _on_fire_rate_timeout():
 
 
 func _on_navegation_timer_timeout():
-	if state != "AttackMelee" or "AttackRange":
-		makepath()
+	makepath()
 
 
 func _on_escape_area_body_entered(body):
@@ -179,3 +212,8 @@ func _on_escape_area_body_exited(body):
 
 func _on_timer_timeout():
 	self.modulate = defaultColor
+
+
+func _on_chase_timer_timeout():
+	ClockStarted = false
+	ForceIdle = true

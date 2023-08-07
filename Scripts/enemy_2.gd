@@ -28,6 +28,14 @@ var alpha = 255 / 255
 var color = Color(red, green, blue, alpha)
 var defaultColor = Color(1, 1, 1, 1)
 
+var AttackRayCast = false
+var RayCast1 = false
+var RayCast2 = false
+var RayCast3 = false
+
+var ClockStarted = false
+var ForceIdle = false
+
 
 func _ready():
 	player = get_parent().get_node("Player")
@@ -35,6 +43,32 @@ func _ready():
 
 
 func _physics_process(delta):
+	$RayCastsAttack.look_at(player.position)
+	$RayCastsChase.look_at(player.position)
+	
+	if RayCast1 or RayCast2 or RayCast3:
+		if state == "Idle":
+			state = "Chase"
+		
+		ForceIdle = false
+		
+	else:
+		if ClockStarted != true:
+			$ChaseTimer.start()
+			ClockStarted = true
+			
+		if state == "Chase":
+			if ForceIdle:
+				state = "Idle"
+	
+	if AttackRayCast:
+		if state == "Chase":
+			state = "AttackRange"
+		
+	else:
+		if state == "AttackRange":
+			state = "Chase"
+	
 	if state == "Idle":
 		if lookingDown:
 			$Anims.play("Idle")
@@ -70,7 +104,7 @@ func _physics_process(delta):
 		else:
 			$Anims.play("Idle2")
 		
-		if can_shoot:
+		if can_shoot and AttackRayCast:
 			shoot()
 	
 	if state == "ShieldRange":
@@ -129,26 +163,6 @@ func makepath() -> void:
 	nav_agent.target_position = player.position
 
 
-func _on_area_2d_body_entered(body):
-	if body == player and state == "Idle":
-		state = "Chase"
-
-
-func _on_area_2d_body_exited(body):
-	if body == player and state == "Chase":
-		state = "Idle"
-
-
-func _on_attack_range_body_entered(body):
-	if body == player and state == "Chase":
-		state = "AttackRange"
-
-
-func _on_attack_range_body_exited(body):
-	if body == player and state == "AttackRange":
-		state = "Chase"
-
-
 func _on_melee_range_body_entered(body):
 	if body == player and state == "AttackRange":
 		state = "ShieldRange"
@@ -166,9 +180,13 @@ func _on_fire_rate_timeout():
 
 
 func _on_navegation_timer_timeout():
-	if state != "AttackRange" or "ShieldRange":
-		makepath()
+	makepath()
 
 
 func _on_timer_timeout():
 	self.modulate = defaultColor
+
+
+func _on_chase_timer_timeout():
+	ClockStarted = false
+	ForceIdle = true

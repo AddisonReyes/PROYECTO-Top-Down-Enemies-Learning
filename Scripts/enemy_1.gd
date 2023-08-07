@@ -22,8 +22,31 @@ var alpha = 255 / 255
 var color = Color(red, green, blue, alpha)
 var defaultColor = Color(1, 1, 1, 1)
 
+var RayCast1 = false
+var RayCast2 = false
+var RayCast3 = false
+
+var ClockStarted = false
+var ForceIdle = false
+
 
 func _physics_process(delta):
+	$RayCasts.look_at(player.position)
+	if RayCast1 or RayCast2 or RayCast3:
+		if state == "Idle":
+			state = "Chase"
+		
+		ForceIdle = false
+		
+	else:
+		if ClockStarted != true:
+			$ChaseTimer.start()
+			ClockStarted = true
+			
+		if state == "Chase":
+			if ForceIdle:
+				state = "Idle"
+	
 	if state == "Idle":
 		if lookingDown:
 			$Anims.play("Idle")
@@ -31,6 +54,7 @@ func _physics_process(delta):
 			$Anims.play("Idle2")
 	
 	if state == "Chase":
+		makepath()
 		var dir = to_local(nav_agent.get_next_path_position()).normalized()
 		
 		if dir[0] > 0: lookingRight = true
@@ -71,17 +95,6 @@ func take_damage(damage):
 	$Timer.start()
 
 
-func _on_area_2d_body_entered(body):
-	if body == player and state == "Idle":
-		state = "Chase"
-		makepath()
-
-
-func _on_area_2d_body_exited(body):
-	if body == player and state == "Chase":
-		state = "Idle"
-
-
 func _on_attack_range_body_entered(body):
 	if body == player and state == "Chase":
 		state = "Attack"
@@ -100,3 +113,8 @@ func _on_navegation_timer_timeout():
 
 func _on_timer_timeout():
 	self.modulate = defaultColor
+
+
+func _on_chase_timer_timeout():
+	ClockStarted = false
+	ForceIdle = true

@@ -1,23 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqvpx6xwgn3bl"]
+[gd_scene load_steps=11 format=3 uid="uid://cqvpx6xwgn3bl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_3.gd" id="1_abrmj"]
 [ext_resource type="PackedScene" uid="uid://bqbbxjhd3aqpy" path="res://Sprites/Bunnye3.aseprite" id="2_ells7"]
 [ext_resource type="PackedScene" uid="uid://bbtppyvu4b231" path="res://Sprites/Bow.aseprite" id="3_0qv4w"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D.gd" id="3_nqqky"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D1.gd" id="4_fs60i"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D2.gd" id="5_wo6xc"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="6_dvrvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilogb"]
-size = Vector2(6, 10)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_j54vh"]
-radius = 257.125
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_w13xw"]
-radius = 160.928
+size = Vector2(6.25, 10.625)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtqat"]
 radius = 17.0294
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dax7x"]
-radius = 84.4329
+radius = 40.6442
 
 [node name="Enemy3" type="CharacterBody2D"]
 scale = Vector2(1.6, 1.6)
@@ -28,15 +26,69 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_abrmj")
 
 [node name="Anims" parent="." instance=ExtResource("2_ells7")]
-position = Vector2(6, 6)
+position = Vector2(4.76837e-07, 4.76837e-07)
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6, 6)
+position = Vector2(2.04891e-07, 0.3125)
+scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_ilogb")
 
+[node name="RayCastsChase" type="Node2D" parent="."]
+scale = Vector2(1, 1)
+
+[node name="RayCast2D1" type="RayCast2D" parent="RayCastsChase"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.57135
+target_position = Vector2(0, 320)
+script = ExtResource("4_fs60i")
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCastsChase"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.6057
+target_position = Vector2(0, 320)
+script = ExtResource("5_wo6xc")
+
+[node name="RayCast2D3" type="RayCast2D" parent="RayCastsChase"]
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.53589
+target_position = Vector2(0, 320)
+script = ExtResource("6_dvrvs")
+
+[node name="RayCastsAttack" type="Node2D" parent="."]
+position = Vector2(4.76837e-07, 4.76837e-07)
+scale = Vector2(1, 1)
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCastsAttack"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(-4.76837e-07, -4.76837e-07)
+rotation = -1.57135
+scale = Vector2(0.549306, 1)
+target_position = Vector2(0, 160)
+script = ExtResource("3_nqqky")
+
+[node name="Ray1" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(9.812, 4.643)
+scale = Vector2(1.57667, 0.85)
+target_position = Vector2(0, 60)
+
+[node name="Ray2" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(-9.188, 4.643)
+scale = Vector2(1.57667, 0.85)
+target_position = Vector2(0, 60)
+
+[node name="Ray3" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(9.812, 4.643)
+scale = Vector2(1.39463, 0.234228)
+target_position = Vector2(0, 60)
+
+[node name="Ray4" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
+position = Vector2(-9.188, 4.643)
+scale = Vector2(1.39463, 0.234228)
+target_position = Vector2(0, 60)
+
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(6.25, 6.25)
+position = Vector2(4.76837e-07, 4.76837e-07)
 
 [node name="Bow" parent="Node2D" instance=ExtResource("3_0qv4w")]
 position = Vector2(5, 1.90735e-06)
@@ -50,21 +102,8 @@ position = Vector2(15.125, 0.124998)
 [node name="direction" type="Marker2D" parent="Node2D"]
 position = Vector2(40.125, 0.124998)
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(6, 6)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_j54vh")
-
-[node name="AttackRange" type="Area2D" parent="."]
-position = Vector2(6, 6)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-shape = SubResource("CircleShape2D_w13xw")
-debug_color = Color(1, 0, 0.0705882, 0.419608)
-
 [node name="MeleeRange" type="Area2D" parent="."]
-position = Vector2(6, 6)
+position = Vector2(4.76837e-07, 4.76837e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 shape = SubResource("CircleShape2D_mtqat")
@@ -74,7 +113,6 @@ debug_color = Color(0.952941, 0, 0.545098, 0.419608)
 position = Vector2(5.96046e-07, 5.96046e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EscapeArea"]
-position = Vector2(5.625, 6.25)
 shape = SubResource("CircleShape2D_dax7x")
 debug_color = Color(0.52549, 0.572549, 0, 0.419608)
 
@@ -89,10 +127,9 @@ autostart = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.6
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
-[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[node name="ChaseTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="body_entered" from="EscapeArea" to="." method="_on_escape_area_body_entered"]
@@ -100,3 +137,4 @@ wait_time = 0.6
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]

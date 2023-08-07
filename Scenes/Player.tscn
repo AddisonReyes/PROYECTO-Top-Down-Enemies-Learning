@@ -21,7 +21,7 @@ autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-0.124997, -0.124997)
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

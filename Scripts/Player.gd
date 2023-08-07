@@ -14,7 +14,7 @@ var lookingDown = true
 var invulnerable = false
 var alive = true
 var damage = 10
-var health = 100
+var health = 100000
 
 var can_shoot = true
 
