@@ -8,3 +8,4 @@ res://Scripts/Player.gd
 res://Scripts/enemy_1.gd
 res://Scripts/enemy_2.gd
 res://Scripts/enemy_3.gd
+res://Scripts/Heart.gd

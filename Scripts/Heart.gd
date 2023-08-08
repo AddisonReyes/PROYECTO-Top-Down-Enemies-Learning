@@ -14,6 +14,6 @@ func _process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body is Player:
-		body.heals(HealthPoints)
-	
-	queue_free()
+		if body.health != body.maxHealth:
+			body.heals(HealthPoints)
+			queue_free()

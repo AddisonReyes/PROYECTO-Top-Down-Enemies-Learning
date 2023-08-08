@@ -20,6 +20,7 @@ animation = &"Death"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visibility_layer = 513
 position = Vector2(-0.124997, -0.124997)
 zoom = Vector2(1.6, 1.6)
 

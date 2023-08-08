@@ -55,6 +55,10 @@ func _physics_process(delta):
 			if ForceIdle:
 				state = "Idle"
 	
+	update_state()
+
+
+func update_state():
 	if state == "Idle":
 		if canHealAgain:
 			heals(healPoints)

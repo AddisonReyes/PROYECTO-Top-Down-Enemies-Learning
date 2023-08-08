@@ -16,6 +16,7 @@ size = Vector2(6.25001, 9.375)
 radius = 42.7617
 
 [node name="Enemy2" type="CharacterBody2D"]
+visibility_layer = 513
 scale = Vector2(1.6, 1.6)
 collision_layer = 3
 collision_mask = 3

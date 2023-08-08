@@ -73,6 +73,10 @@ func _physics_process(delta):
 		if state == "AttackRange":
 			state = "Chase"
 	
+	update_state()
+
+
+func update_state():
 	if state == "Idle":
 		if canHealAgain:
 			heals(healPoints)
