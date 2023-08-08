@@ -11,15 +11,16 @@ var state = "Idle"
 var lookingRight = true
 var lookingDown = true
 
-var health = 30
+var maxHealth = 30
+var health = maxHealth
 var damage = 10
 
-var red = 255 / 255
-var green = 89 / 255
-var blue = 110 / 255
-var alpha = 255 / 255
+var healthBar
+var healPoints = 5
+var canHealAgain = true
 
-var color = Color(red, green, blue, alpha)
+var damageColor = Color(1, 0, 0, 1)
+var healColor = Color(0, 1, 0, 1)
 var defaultColor = Color(1, 1, 1, 1)
 
 var RayCast1 = false
@@ -30,8 +31,15 @@ var ClockStarted = false
 var ForceIdle = false
 
 
+func _ready():
+	healthBar = $HealthBar
+	healthBar.max_value = maxHealth
+
+
 func _physics_process(delta):
 	$RayCasts.look_at(player.position)
+	update_health()
+	
 	if RayCast1 or RayCast2 or RayCast3:
 		if state == "Idle":
 			state = "Chase"
@@ -48,6 +56,9 @@ func _physics_process(delta):
 				state = "Idle"
 	
 	if state == "Idle":
+		if canHealAgain:
+			heals(healPoints)
+			
 		if lookingDown:
 			$Anims.play("Idle")
 		else:
@@ -91,8 +102,30 @@ func take_damage(damage):
 		state = "Chase"
 
 	health -= damage
-	self.modulate = color
+	self.modulate = damageColor
 	$Timer.start()
+
+
+func heals(healPoints):
+	if health < maxHealth:
+		canHealAgain = false
+		health += healPoints
+		
+		self.modulate = healColor
+		$HealTimer.start()
+
+
+func update_health():
+	if health >= maxHealth:
+		health = maxHealth
+		
+	healthBar.value = health
+	
+	if health >= maxHealth:
+		healthBar.visible = false
+	
+	else:
+		healthBar.visible = true
 
 
 func _on_attack_range_body_entered(body):
@@ -118,3 +151,8 @@ func _on_timer_timeout():
 func _on_chase_timer_timeout():
 	ClockStarted = false
 	ForceIdle = true
+
+
+func _on_heal_timer_timeout():
+	self.modulate = defaultColor
+	canHealAgain = true

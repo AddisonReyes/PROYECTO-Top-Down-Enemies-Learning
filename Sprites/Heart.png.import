@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://con1dhwi76ggl"
-path="res://.godot/imported/Zanna anims.aseprite-72148b56138d033fd80d045efb8c805d.ctex"
+uid="uid://ddhr7dnqr0usi"
+path="res://.godot/imported/Heart.png-e910d028e12b6ab43422798cb5418f7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Zanna anims.aseprite"
-dest_files=["res://.godot/imported/Zanna anims.aseprite-72148b56138d033fd80d045efb8c805d.ctex"]
+source_file="res://Sprites/Heart.png"
+dest_files=["res://.godot/imported/Heart.png-e910d028e12b6ab43422798cb5418f7e.ctex"]
 
 [params]
 

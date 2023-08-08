@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="6_dvrvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilogb"]
-size = Vector2(6.25, 10.625)
+size = Vector2(6.25, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mtqat"]
 radius = 17.0294
@@ -30,12 +30,11 @@ position = Vector2(4.76837e-07, 4.76837e-07)
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.04891e-07, 0.3125)
+position = Vector2(2.04891e-07, 2.70084e-06)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_ilogb")
 
 [node name="RayCastsChase" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="RayCast2D1" type="RayCast2D" parent="RayCastsChase"]
 position = Vector2(-4.76837e-07, -4.76837e-07)
@@ -57,7 +56,6 @@ script = ExtResource("6_dvrvs")
 
 [node name="RayCastsAttack" type="Node2D" parent="."]
 position = Vector2(4.76837e-07, 4.76837e-07)
-scale = Vector2(1, 1)
 
 [node name="RayCast2D" type="RayCast2D" parent="RayCastsAttack"]
 modulate = Color(1, 0, 0, 1)
@@ -130,6 +128,19 @@ wait_time = 0.6
 [node name="ChaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 0.4
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.447059, 1, 0.47451, 1)
+light_mask = 512
+visibility_layer = 512
+offset_left = -11.0
+offset_top = 8.0
+offset_right = 11.0
+offset_bottom = 12.0
+show_percentage = false
+
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="body_entered" from="EscapeArea" to="." method="_on_escape_area_body_entered"]
@@ -138,3 +149,4 @@ wait_time = 5.0
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

@@ -21,7 +21,7 @@ autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-0.124997, -0.124997)
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(1.6, 1.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -30,6 +30,9 @@ shape = SubResource("RectangleShape2D_cojv8")
 
 [node name="TPTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 0.4
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 
@@ -50,6 +53,17 @@ position = Vector2(40.125, 0.124998)
 
 [node name="FireRate" type="Timer" parent="."]
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.447059, 1, 0.47451, 1)
+light_mask = 512
+visibility_layer = 512
+offset_left = -13.0
+offset_top = 8.0
+offset_right = 13.0
+offset_bottom = 12.0
+show_percentage = false
+
 [connection signal="timeout" from="TPTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
 [connection signal="timeout" from="InvulnerableTimer" to="." method="_on_invulnerable_timer_timeout"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

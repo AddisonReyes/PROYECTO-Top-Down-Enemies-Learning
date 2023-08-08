@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="7_dowlv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vi6g"]
-size = Vector2(7.5, 10)
+size = Vector2(6.25001, 9.375)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rxlyd"]
 radius = 42.7617
@@ -29,7 +29,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7.45058e-08, 4.09782e-07)
+position = Vector2(1.86264e-08, -0.312497)
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_6vi6g")
 
@@ -50,7 +50,6 @@ position = Vector2(40.125, 0.124998)
 
 [node name="RayCastsAttack" type="Node2D" parent="."]
 position = Vector2(4.76837e-07, 4.76837e-07)
-scale = Vector2(1, 1)
 
 [node name="RayCast2D" type="RayCast2D" parent="RayCastsAttack"]
 modulate = Color(1, 0, 0, 1)
@@ -58,6 +57,7 @@ position = Vector2(-4.76837e-07, -4.76837e-07)
 rotation = -1.57135
 scale = Vector2(0.549306, 1)
 target_position = Vector2(0, 160)
+collision_mask = 513
 script = ExtResource("4_khl4v")
 
 [node name="Ray1" type="RayCast2D" parent="RayCastsAttack/RayCast2D"]
@@ -81,7 +81,6 @@ scale = Vector2(1.39463, 0.234228)
 target_position = Vector2(0, 60)
 
 [node name="RayCastsChase" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="RayCast2D1" type="RayCast2D" parent="RayCastsChase"]
 position = Vector2(-4.76837e-07, -4.76837e-07)
@@ -126,9 +125,23 @@ wait_time = 0.6
 [node name="ChaseTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="HealTimer" type="Timer" parent="."]
+wait_time = 0.4
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.447059, 1, 0.47451, 1)
+light_mask = 512
+visibility_layer = 512
+offset_left = -11.0
+offset_top = 8.0
+offset_right = 11.0
+offset_bottom = 12.0
+show_percentage = false
+
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

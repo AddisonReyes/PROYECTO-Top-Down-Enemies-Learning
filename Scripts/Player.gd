@@ -14,23 +14,29 @@ var lookingDown = true
 var invulnerable = false
 var alive = true
 var damage = 10
-var health = 100000
+var health = 60
+
+var maxHealth = health
+var healthBar
 
 var can_shoot = true
 
 var fireRate = 0.9
 var TPtime = 2
 
-var red = 255 / 255
-var green = 89 / 255
-var blue = 110 / 255
-var alpha = 255 / 255
-
-var color = Color(red, green, blue, alpha)
+var damageColor = Color(1, 0, 0, 1)
+var healColor = Color(0, 1, 0, 1)
 var defaultColor = Color(1, 1, 1, 1)
 
 
+func _ready():
+	healthBar = $HealthBar
+	healthBar.max_value = maxHealth
+
+
 func _physics_process(delta):
+	update_health()
+	
 	if health <= 0 and alive:
 		print("Moriste")
 		alive = false
@@ -90,12 +96,32 @@ func take_damage(damage):
 	if invulnerable != true and alive:
 		print("Te han atacado -", damage)
 		
-		self.modulate = color
+		self.modulate = damageColor
 		health -= damage
 		
 		invulnerable = true
 		$InvulnerableTimer.start()
 
+
+func heals(healPoints):
+	if health < maxHealth:
+		health += healPoints
+		
+		self.modulate = healColor
+		$HealTimer.start()
+
+
+func update_health():
+	if health >= maxHealth:
+		health = maxHealth
+		
+	healthBar.value = health
+	
+	if health >= maxHealth:
+		healthBar.visible = false
+	
+	else:
+		healthBar.visible = true
 
 func shoot():
 	var arrow = ArrowPath.instantiate()
@@ -181,3 +207,7 @@ func _on_invulnerable_timer_timeout():
 
 func _on_fire_rate_timeout():
 	can_shoot = true
+
+
+func _on_heal_timer_timeout():
+	self.modulate = defaultColor
