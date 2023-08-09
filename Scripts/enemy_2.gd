@@ -2,13 +2,13 @@ extends CharacterBody2D
 class_name Enemy2
 
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
+@onready var player = get_parent().get_node("Player")
 const ArrowPath = preload("res://Scenes/arrow.tscn")
 
 const SPEED = 167.5
 var player_position
 var target_position
 var state = "Idle"
-var player
 
 var lookingRight = true
 var lookingDown = true
@@ -39,7 +39,6 @@ var ForceIdle = false
 
 
 func _ready():
-	player = get_parent().get_node("Player")
 	deactivate_shield()
 	
 	healthBar = $HealthBar

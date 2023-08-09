@@ -2,10 +2,11 @@ extends CharacterBody2D
 class_name Enemy3
 
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
+@onready var player = get_parent().get_node("Player")
 const ArrowPath = preload("res://Scenes/arrow.tscn")
+
 const SPEED = 150.0
 var state = "Idle"
-var player
 
 var player_position
 var target_position
@@ -39,8 +40,6 @@ var ForceIdle = false
 
 
 func _ready():
-	player = get_parent().get_node("Player")
-	
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
 

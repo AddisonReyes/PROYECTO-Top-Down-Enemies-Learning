@@ -3,6 +3,7 @@ class_name Player
 
 
 const ArrowPath = preload("res://Scenes/arrow.tscn")
+
 const PIXELS_TO_MOVE = 1.6
 const TP_MULTIPLIER = 46
 const SPEED = 110.0
@@ -122,6 +123,7 @@ func update_health():
 	
 	else:
 		healthBar.visible = true
+
 
 func shoot():
 	var arrow = ArrowPath.instantiate()

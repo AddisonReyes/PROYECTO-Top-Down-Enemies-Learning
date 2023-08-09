@@ -4,6 +4,7 @@ class_name Enemy1
 
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var player = get_parent().get_node("Player")
+var rng = RandomNumberGenerator.new()
 
 const SPEED = 185.5
 var state = "Idle"
@@ -31,6 +32,16 @@ var ClockStarted = false
 var ForceIdle = false
 
 
+#neural network variables
+var i_see_the_player = 0
+var attack_range = 0
+
+var weights = [[0.1, 0.1, 0.8], #Idle weights
+			   [0.5, 0.8, 0.2], #Chase weights
+			   [0.9, 0.5, 0.1]] #Attack weights
+var bias = 0.1
+
+
 func _ready():
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
@@ -41,21 +52,47 @@ func _physics_process(delta):
 	update_health()
 	
 	if RayCast1 or RayCast2 or RayCast3:
-		if state == "Idle":
-			state = "Chase"
-		
-		ForceIdle = false
+		i_see_the_player = 1
 		
 	else:
 		if ClockStarted != true:
 			$ChaseTimer.start()
 			ClockStarted = true
-			
-		if state == "Chase":
-			if ForceIdle:
-				state = "Idle"
 	
+	neural_network(attack_range, i_see_the_player, sigmoid(-health))
 	update_state()
+
+
+func neural_network(attack_range, player_seen, health):
+	var outputs = [0, 0, 0] # Índice 0: Idle, Índice 1: Chase, Índice 2: Attack
+	
+	for i in range(0, 3):
+		outputs[i] = calculate_output(attack_range, player_seen, health, weights[i])
+		#print(weights,": ",outputs[i],"\n")
+	
+	var max_output = outputs[0]
+	var max_index = 0
+	
+	for i in range(1, outputs.size()):
+		if outputs[i] > max_output:
+			max_output = outputs[i]
+			max_index = i
+	
+	var next_state
+	if max_index == 0: next_state = "Idle"
+	elif max_index == 1: next_state = "Chase"
+	else: next_state = "Attack"
+
+	state = next_state
+
+
+func sigmoid(x):
+	return 1 / (1 + exp(-x))
+
+
+func calculate_output(attack_range, player_seen, health, weights):
+	var input = attack_range * weights[0] + player_seen * weights[1] + health * weights[2] + bias
+	return sigmoid(input)
 
 
 func update_state():
@@ -89,9 +126,6 @@ func update_state():
 		
 	if state == "Attack":
 		player.take_damage(damage)
-		
-	if state == "Killed":
-		queue_free()
 
 
 func makepath() -> void:
@@ -99,11 +133,11 @@ func makepath() -> void:
 
 
 func take_damage(damage):
-	if health <= 0:
-		state = "Killed"
+	if i_see_the_player == 0:
+		i_see_the_player = 1
 	
-	if state == "Idle":
-		state = "Chase"
+	if health <= 0:
+		queue_free()
 
 	health -= damage
 	self.modulate = damageColor
@@ -133,13 +167,13 @@ func update_health():
 
 
 func _on_attack_range_body_entered(body):
-	if body == player and state == "Chase":
-		state = "Attack"
+	if body == player:
+		attack_range = 1
 
 
 func _on_attack_range_body_exited(body):
-	if body == player and state == "Attack":
-		state = "Chase"
+	if body == player:
+		attack_range = 0
 		makepath()
 
 
@@ -153,8 +187,8 @@ func _on_timer_timeout():
 
 
 func _on_chase_timer_timeout():
+	i_see_the_player = 0
 	ClockStarted = false
-	ForceIdle = true
 
 
 func _on_heal_timer_timeout():
