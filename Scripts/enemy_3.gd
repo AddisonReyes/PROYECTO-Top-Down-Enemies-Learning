@@ -37,6 +37,21 @@ var RayCast3 = false
 
 var ClockStarted = false
 var ForceIdle = false
+var canAttack = false
+
+#neural network variables
+var i_see_the_player = 0
+var attack_range = 0
+var melee_range = 0
+var run_range = 0
+
+#neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range, run_range)
+var weights = [[0.1, 0.1, 0.9, 0.2, 0.1], #Idle weights
+			   [0.3, 0.4, 0.1, 0.1, 0.1], #Chase weights
+			   [0.5, 0.2, 0.8, 0.1, 0.9], #Run weights
+			   [0.8, 0.4, -0.2, 0.1, 0.1], #AttackRange weights
+			   [0.1, 0.3, 0.1, 0.9, 0.4]] #AttackMelee weights
+var bias = [0.2, 0.2, 0.2, 0.1, 0.1]
 
 
 func _ready():
@@ -50,29 +65,57 @@ func _physics_process(delta):
 	update_health()
 	
 	if RayCast1 or RayCast2 or RayCast3:
-		if state == "Idle":
-			state = "Chase"
-		
-		ForceIdle = false
+		i_see_the_player = 1
 		
 	else:
 		if ClockStarted != true:
 			$ChaseTimer.start()
 			ClockStarted = true
-			
-		if state == "Chase":
-			if ForceIdle:
-				state = "Idle"
 	
 	if AttackRayCast:
-		if state == "Chase":
-			state = "AttackRange"
+		attack_range = 1
 		
 	else:
-		if state == "AttackRange":
-			state = "Chase"
+		attack_range = 0
 	
+	neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range, run_range)
 	update_state()
+
+
+func neural_network(attack_range, player_seen, health, melee_range, run_range):
+	var outputs = [0, 0, 0, 0, 0]
+	
+	for i in range(0, len(weights)):
+		outputs[i] = calculate_output(attack_range, player_seen, health, melee_range, run_range, weights[i], bias[i])
+		#print(weights,": ",outputs[i],"\n")
+	
+	var max_output = outputs[0]
+	var max_index = 0
+	
+	for i in range(1, outputs.size()):
+		if outputs[i] > max_output:
+			max_output = outputs[i]
+			max_index = i
+	
+	var next_state
+	if max_index == 0: next_state = "Idle"
+	elif max_index == 1: next_state = "Chase"
+	elif max_index == 2: next_state = "Run"
+	elif max_index == 3: next_state = "AttackRange"
+	else: next_state = "AttackMelee"
+
+	if next_state != state:
+		state = next_state
+		#print(next_state)
+
+
+func sigmoid(x):
+	return 1 / (1 + exp(-x))
+
+
+func calculate_output(attack_range, player_seen, health, melee_range, run_range, weights, bias):
+	var input = attack_range * weights[0] + player_seen * weights[1] + health * weights[2] + melee_range * weights[3] + run_range * weights[4] + bias
+	return sigmoid(input)
 
 
 func update_state():
@@ -118,7 +161,8 @@ func update_state():
 			shoot()
 	
 	if state == "AttackMelee":
-		player.take_damage(damageMelee)
+		if canAttack:
+			player.take_damage(damageMelee)
 		
 		if lookingDown:
 			$Anims.play("Idle")
@@ -134,9 +178,6 @@ func update_state():
 			velocity = Vector2(new_position * SPEED)
 
 			move_and_slide()
-		
-	if state == "Killed":
-		queue_free()
 
 
 func _process(delta):
@@ -144,11 +185,11 @@ func _process(delta):
 
 
 func take_damage(damage):
-	if health <= 0:
-		state = "Killed"
+	if i_see_the_player == 0:
+		i_see_the_player = 1
 	
-	if state == "Idle":
-		state = "Chase"
+	if health <= 0:
+		queue_free()
 
 	health -= damage
 	self.modulate = damageColor
@@ -195,34 +236,16 @@ func makepath() -> void:
 	nav_agent.target_position = player.position
 
 
-func _on_area_2d_body_entered(body):
-	if body == player and state == "Idle":
-		state = "Chase"
-
-
-func _on_area_2d_body_exited(body):
-	if body == player and state == "Chase":
-		state = "Idle"
-
-
-func _on_attack_range_body_entered(body):
-	if body == player and state == "Chase":
-		state = "AttackRange"
-
-
-func _on_attack_range_body_exited(body):
-	if body == player and state == "AttackRange":
-		state = "Chase"
-
-
 func _on_melee_range_body_entered(body):
-	if body == player and state == "Run":
-		state = "AttackMelee"
+	if body == player:
+		canAttack = true
+		melee_range = 1
 
 
 func _on_melee_range_body_exited(body):
-	if body == player and state == "AttackMelee":
-		state = "Run"
+	if body == player:
+		canAttack = false
+		melee_range = 0
 
 
 func _on_fire_rate_timeout():
@@ -234,13 +257,13 @@ func _on_navegation_timer_timeout():
 
 
 func _on_escape_area_body_entered(body):
-	if body == player and state == "AttackRange":
-		state = "Run"
+	if body == player:
+		run_range = 1
 
 
 func _on_escape_area_body_exited(body):
-	if body == player and state == "Run":
-		state = "AttackRange"
+	if body == player:
+		run_range = 0
 
 
 func _on_timer_timeout():
@@ -248,6 +271,7 @@ func _on_timer_timeout():
 
 
 func _on_chase_timer_timeout():
+	i_see_the_player = 0
 	ClockStarted = false
 	ForceIdle = true
 

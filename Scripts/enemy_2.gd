@@ -37,6 +37,19 @@ var RayCast3 = false
 var ClockStarted = false
 var ForceIdle = false
 
+#neural network variables
+var i_see_the_player = 0
+var attack_range = 0
+var melee_range = 0
+
+#neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range)
+var weights = [[0.1, 0.1, 0.8, 0.2], #Idle weights
+			   [0.3, 0.6, 0.1, 0.1], #Chase weights
+			   [0.2, 0.5, 0.6, 0.2], #Run weights
+			   [0.8, 0.4, 0.1, 0.1], #AttackRange weights
+			   [0.4, 0.3, 0.2, 0.8]] #ShieldRange weights
+var bias = [0.2, 0.1, 0.2, 0.1, 0.1]
+
 
 func _ready():
 	deactivate_shield()
@@ -51,31 +64,57 @@ func _physics_process(delta):
 	update_health()
 	
 	if RayCast1 or RayCast2 or RayCast3:
-		if state == "Idle":
-			state = "Chase"
-		
-		ForceIdle = false
+		i_see_the_player = 1
 		
 	else:
 		if ClockStarted != true:
 			$ChaseTimer.start()
 			ClockStarted = true
-			
-		if state == "Chase":
-			if ForceIdle:
-				state = "Idle"
 	
 	if AttackRayCast:
-		if state == "Chase":
-			state = "AttackRange"
+		attack_range = 1
 		
 	else:
-		if state == "AttackRange":
-			state = "Chase"
-			
-		ForceIdle = false
+		attack_range = 0
 	
+	neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range)
 	update_state()
+
+
+func neural_network(attack_range, player_seen, health, melee_range):
+	var outputs = [0, 0, 0, 0, 0]
+	
+	for i in range(0, len(weights)):
+		outputs[i] = calculate_output(attack_range, player_seen, health, melee_range, weights[i], bias[i])
+		#print(weights,": ",outputs[i],"\n")
+	
+	var max_output = outputs[0]
+	var max_index = 0
+	
+	for i in range(1, outputs.size()):
+		if outputs[i] > max_output:
+			max_output = outputs[i]
+			max_index = i
+	
+	var next_state
+	if max_index == 0: next_state = "Idle"
+	elif max_index == 1: next_state = "Chase"
+	elif max_index == 2: next_state = "Run"
+	elif max_index == 3: next_state = "AttackRange"
+	else: next_state = "ShieldRange"
+
+	if next_state != state:
+		state = next_state
+		#print(next_state)
+
+
+func sigmoid(x):
+	return 1 / (1 + exp(-x))
+
+
+func calculate_output(attack_range, player_seen, health, melee_range, weights, bias):
+	var input = attack_range * weights[0] + player_seen * weights[1] + health * weights[2] + melee_range * weights[3] + bias
+	return sigmoid(input)
 
 
 func update_state():
@@ -108,6 +147,15 @@ func update_state():
 		velocity = dir * SPEED
 		move_and_slide()
 	
+	if state == "Run":
+		var target_position = (player.position - position).normalized()
+
+		if position.distance_to(player.position) > 3:
+			var new_position = Vector2(-target_position.x, -target_position.y)
+			velocity = Vector2(new_position * SPEED)
+
+			move_and_slide()
+	
 	if state == "AttackRange":
 		player_position = player.position
 		$Node2D.look_at(player_position)
@@ -121,16 +169,13 @@ func update_state():
 			shoot()
 	
 	if state == "ShieldRange":
+		player_position = player.position
+		$Shield.look_at(player_position)
+		
 		if lookingDown:
 			$Anims.play("Idle")
 		else:
 			$Anims.play("Idle2")
-			
-		player_position = player.position
-		$Shield.look_at(player_position)
-	
-	if state == "Killed":
-		queue_free()
 
 
 func _process(delta):
@@ -138,11 +183,11 @@ func _process(delta):
 
 
 func take_damage(damage):
-	if health <= 0:
-		state = "Killed"
+	if i_see_the_player == 0:
+		i_see_the_player = 1
 	
-	if state == "Idle":
-		state = "Chase"
+	if health <= 0:
+		queue_free()
 
 	if state != "ShieldRange":
 		self.modulate = damageColor
@@ -199,15 +244,17 @@ func makepath() -> void:
 
 
 func _on_melee_range_body_entered(body):
-	if body == player and state == "AttackRange":
-		state = "ShieldRange"
+	if body == player:
 		activate_shield()
+		can_shoot = false
+		melee_range = 1
 
 
 func _on_melee_range_body_exited(body):
-	if body == player and state == "ShieldRange":
-		state = "AttackRange"
+	if body == player:
 		deactivate_shield()
+		can_shoot = true
+		melee_range = 0
 
 
 func _on_fire_rate_timeout():
@@ -223,6 +270,7 @@ func _on_timer_timeout():
 
 
 func _on_chase_timer_timeout():
+	i_see_the_player = 0
 	ClockStarted = false
 	ForceIdle = true
 

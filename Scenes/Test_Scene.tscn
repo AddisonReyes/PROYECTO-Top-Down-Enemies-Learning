@@ -928,6 +928,18 @@ position = Vector2(-669, 512)
 [node name="HeartItem9" parent="Items" instance=ExtResource("8_tjqrw")]
 position = Vector2(12, -581)
 
+[node name="HeartItem10" parent="Items" instance=ExtResource("8_tjqrw")]
+position = Vector2(235, 500)
+
+[node name="HeartItem11" parent="Items" instance=ExtResource("8_tjqrw")]
+position = Vector2(-259, 129)
+
+[node name="HeartItem12" parent="Items" instance=ExtResource("8_tjqrw")]
+position = Vector2(-159, -345)
+
+[node name="HeartItem13" parent="Items" instance=ExtResource("8_tjqrw")]
+position = Vector2(1446, -318)
+
 [node name="Player" parent="." instance=ExtResource("1_d7fjo")]
 position = Vector2(-315, -22)
 
@@ -938,4 +950,4 @@ position = Vector2(-17, -421)
 position = Vector2(-666, 373)
 
 [node name="Enemy3" parent="." instance=ExtResource("5_t5y0k")]
-position = Vector2(1156, 44)
+position = Vector2(523, 6)

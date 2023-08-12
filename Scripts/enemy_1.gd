@@ -30,16 +30,18 @@ var RayCast3 = false
 
 var ClockStarted = false
 var ForceIdle = false
-
+var canAttack = false
 
 #neural network variables
 var i_see_the_player = 0
 var attack_range = 0
 
-var weights = [[0.1, 0.1, 0.8], #Idle weights
-			   [0.5, 0.8, 0.2], #Chase weights
-			   [0.9, 0.5, 0.1]] #Attack weights
-var bias = 0.1
+#neural_network(attack_range, i_see_the_player, sigmoid(-health))
+var weights = [[0.1, 0.1, 0.7], #Idle weights
+			   [0.3, 0.7, 0.1], #Chase weights
+			   [0.2, 0.6, 0.6], #Run weights
+			   [0.8, 0.4, 0.1]] #Attack weights
+var bias = [0.2, 0.1, 0.1, 0.2]
 
 
 func _ready():
@@ -64,10 +66,10 @@ func _physics_process(delta):
 
 
 func neural_network(attack_range, player_seen, health):
-	var outputs = [0, 0, 0] # Índice 0: Idle, Índice 1: Chase, Índice 2: Attack
+	var outputs = [0, 0, 0, 0] # Índice 0: Idle, Índice 1: Chase, Índice 2: Attack
 	
-	for i in range(0, 3):
-		outputs[i] = calculate_output(attack_range, player_seen, health, weights[i])
+	for i in range(0, len(weights)):
+		outputs[i] = calculate_output(attack_range, player_seen, health, weights[i], bias[i])
 		#print(weights,": ",outputs[i],"\n")
 	
 	var max_output = outputs[0]
@@ -81,16 +83,19 @@ func neural_network(attack_range, player_seen, health):
 	var next_state
 	if max_index == 0: next_state = "Idle"
 	elif max_index == 1: next_state = "Chase"
+	elif max_index == 2: next_state = "Run"
 	else: next_state = "Attack"
 
-	state = next_state
+	if next_state != state:
+		state = next_state
+		#print(next_state)
 
 
 func sigmoid(x):
 	return 1 / (1 + exp(-x))
 
 
-func calculate_output(attack_range, player_seen, health, weights):
+func calculate_output(attack_range, player_seen, health, weights, bias):
 	var input = attack_range * weights[0] + player_seen * weights[1] + health * weights[2] + bias
 	return sigmoid(input)
 
@@ -104,6 +109,15 @@ func update_state():
 			$Anims.play("Idle")
 		else:
 			$Anims.play("Idle2")
+	
+	if state == "Run":
+		var target_position = (player.position - position).normalized()
+
+		if position.distance_to(player.position) > 3:
+			var new_position = Vector2(-target_position.x, -target_position.y)
+			velocity = Vector2(new_position * SPEED)
+
+			move_and_slide()
 	
 	if state == "Chase":
 		makepath()
@@ -125,7 +139,13 @@ func update_state():
 		move_and_slide()
 		
 	if state == "Attack":
-		player.take_damage(damage)
+		if canAttack:
+			player.take_damage(damage)
+			
+		if lookingDown:
+			$Anims.play("Idle")
+		else:
+			$Anims.play("Idle2")
 
 
 func makepath() -> void:
@@ -168,11 +188,13 @@ func update_health():
 
 func _on_attack_range_body_entered(body):
 	if body == player:
+		canAttack = true
 		attack_range = 1
 
 
 func _on_attack_range_body_exited(body):
 	if body == player:
+		canAttack = false
 		attack_range = 0
 		makepath()
 
