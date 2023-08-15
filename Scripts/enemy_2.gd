@@ -42,13 +42,8 @@ var i_see_the_player = 0
 var attack_range = 0
 var melee_range = 0
 
-#neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range)
-var weights = [[0.1, 0.1, 0.8, 0.2], #Idle weights
-			   [0.3, 0.6, 0.1, 0.1], #Chase weights
-			   [0.2, 0.5, 0.6, 0.2], #Run weights
-			   [0.8, 0.4, 0.1, 0.1], #AttackRange weights
-			   [0.4, 0.3, 0.2, 0.8]] #ShieldRange weights
-var bias = [0.2, 0.1, 0.2, 0.1, 0.1]
+var weights
+var bias
 
 
 func _ready():
@@ -56,6 +51,8 @@ func _ready():
 	
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
+	
+	load_data()
 
 
 func _physics_process(delta):
@@ -241,6 +238,16 @@ func activate_shield():
 
 func makepath() -> void:
 	nav_agent.target_position = player.position
+
+
+func load_data():
+	var file = FileAccess.open("res://Variables/Enemy_2_data.dat", FileAccess.READ)
+	var data = file.get_var()
+	
+	weights = data["Weights"]
+	bias = data["Bias"]
+	
+	#print(data)
 
 
 func _on_melee_range_body_entered(body):

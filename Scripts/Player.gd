@@ -14,12 +14,14 @@ var lookingDown = true
 
 var invulnerable = false
 var alive = true
-var damage = 10
+var damage = 9
 var health = 60
 
 var maxHealth = health
 var healthBar
 
+var singleShoot = false
+var multiShoot = true
 var can_shoot = true
 
 var fireRate = 0.9
@@ -80,7 +82,7 @@ func _physics_process(delta):
 		else: 
 			velocity.y = move_toward(velocity.y, 0, SPEED)
 		
-		$Node2D.look_at(get_global_mouse_position())
+		$Arco.look_at(get_global_mouse_position())
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and can_shoot:
 			shoot()
 		
@@ -102,6 +104,12 @@ func take_damage(damage):
 		
 		invulnerable = true
 		$InvulnerableTimer.start()
+		
+		if health <= 0:
+			return true
+		
+		else:
+			return false
 
 
 func heals(healPoints):
@@ -126,13 +134,30 @@ func update_health():
 
 
 func shoot():
-	var arrow = ArrowPath.instantiate()
-	get_parent().add_child(arrow)
+	if singleShoot:
+		var arrow = ArrowPath.instantiate()
+		get_parent().add_child(arrow)
+		
+		arrow.position = $Arco/Node2D/Marker2D.global_position
+		arrow.direction = $Arco/Node2D/direction.global_position
+		arrow.arrowVelocity = get_global_mouse_position() - arrow.position
+		arrow.damage = damage
 	
-	arrow.position = $Node2D/Marker2D.global_position
-	arrow.direction = $Node2D/direction.global_position
-	arrow.arrowVelocity = get_global_mouse_position() - arrow.position
-	arrow.damage = damage
+	if multiShoot:
+		var arrow1 = ArrowPath.instantiate()
+		var arrow2 = ArrowPath.instantiate()
+		var arrow3 = ArrowPath.instantiate()
+		
+		var arrows = [arrow1, arrow2, arrow3]
+		var arrowsPositions = [$Arco/Node2D/Marker2D.global_position, $Arco/Node2D2/Marker2D.global_position, $Arco/Node2D3/Marker2D.global_position]
+		var arrowsDirections = [$Arco/Node2D/direction.global_position, $Arco/Node2D2/direction.global_position, $Arco/Node2D3/direction.global_position]
+		
+		for i in range(3):
+			get_parent().add_child(arrows[i])
+			arrows[i].position = arrowsPositions[i]
+			arrows[i].direction = arrowsDirections[i]
+			arrows[i].arrowVelocity = $Arco/Marker2D.global_position - arrows[i].position
+			arrows[i].damage = damage
 	
 	can_shoot = false
 	$FireRate.wait_time = fireRate

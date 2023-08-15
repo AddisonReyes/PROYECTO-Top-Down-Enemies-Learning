@@ -12,6 +12,8 @@ position = Vector2(-9.53674e-07, -9.53674e-07)
 scale = Vector2(1.6, 1.6)
 collision_layer = 3
 collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_rfk20")
 
 [node name="Anims" parent="." instance=ExtResource("2_wshjl")]
@@ -25,7 +27,6 @@ position = Vector2(-0.124997, -0.124997)
 zoom = Vector2(1.6, 1.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.124997, -0.124997)
 shape = SubResource("RectangleShape2D_cojv8")
 
@@ -37,19 +38,44 @@ wait_time = 0.4
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(-0.124997, -0.124997)
+[node name="Arco" type="Node2D" parent="."]
 
-[node name="Bow" parent="Node2D" instance=ExtResource("3_c2ojs")]
-position = Vector2(5, 1.90735e-06)
+[node name="Marker2D" type="Marker2D" parent="Arco"]
+position = Vector2(41.875, 0)
+
+[node name="Bow" parent="Arco" instance=ExtResource("3_c2ojs")]
+position = Vector2(4.875, -0.124995)
 scale = Vector2(0.6875, 0.6875)
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="Marker2D" type="Marker2D" parent="Node2D"]
+[node name="Node2D" type="Node2D" parent="Arco"]
+position = Vector2(-0.124997, -0.124997)
+
+[node name="Marker2D" type="Marker2D" parent="Arco/Node2D"]
 position = Vector2(15.125, 0.124998)
 
-[node name="direction" type="Marker2D" parent="Node2D"]
+[node name="direction" type="Marker2D" parent="Arco/Node2D"]
+position = Vector2(40.125, 0.124998)
+
+[node name="Node2D2" type="Node2D" parent="Arco"]
+position = Vector2(-0.124997, -0.124997)
+rotation = 0.10472
+
+[node name="Marker2D" type="Marker2D" parent="Arco/Node2D2"]
+position = Vector2(15.125, 0.124998)
+
+[node name="direction" type="Marker2D" parent="Arco/Node2D2"]
+position = Vector2(40.125, 0.124998)
+
+[node name="Node2D3" type="Node2D" parent="Arco"]
+position = Vector2(-0.124997, -0.124997)
+rotation = -0.10472
+
+[node name="Marker2D" type="Marker2D" parent="Arco/Node2D3"]
+position = Vector2(15.125, 0.124998)
+
+[node name="direction" type="Marker2D" parent="Arco/Node2D3"]
 position = Vector2(40.125, 0.124998)
 
 [node name="FireRate" type="Timer" parent="."]

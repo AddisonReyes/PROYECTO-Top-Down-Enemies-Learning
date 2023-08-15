@@ -5,7 +5,7 @@ var arrowVelocity = Vector2(0, 0)
 var direction = Vector2(0, 0)
 var orientation_fixed = true
 var damage = 5
-var speed = 465
+var speed = 500
 
 
 func _ready():

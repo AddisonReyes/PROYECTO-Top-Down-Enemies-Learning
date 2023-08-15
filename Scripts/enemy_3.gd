@@ -45,18 +45,15 @@ var attack_range = 0
 var melee_range = 0
 var run_range = 0
 
-#neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range, run_range)
-var weights = [[0.1, 0.1, 0.9, 0.2, 0.1], #Idle weights
-			   [0.3, 0.4, 0.1, 0.1, 0.1], #Chase weights
-			   [0.5, 0.2, 0.8, 0.1, 0.9], #Run weights
-			   [0.8, 0.4, -0.2, 0.1, 0.1], #AttackRange weights
-			   [0.1, 0.3, 0.1, 0.9, 0.4]] #AttackMelee weights
-var bias = [0.2, 0.2, 0.2, 0.1, 0.1]
+var weights
+var bias
 
 
 func _ready():
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
+	
+	load_data()
 
 
 func _physics_process(delta):
@@ -234,6 +231,16 @@ func shoot():
 
 func makepath() -> void:
 	nav_agent.target_position = player.position
+
+
+func load_data():
+	var file = FileAccess.open("res://Variables/Enemy_3_data.dat", FileAccess.READ)
+	var data = file.get_var()
+	
+	weights = data["Weights"]
+	bias = data["Bias"]
+	
+	#print(data)
 
 
 func _on_melee_range_body_entered(body):

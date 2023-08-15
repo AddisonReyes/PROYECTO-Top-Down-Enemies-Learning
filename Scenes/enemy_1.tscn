@@ -21,6 +21,9 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_ipvh7")
 
+[node name="timeAlive" type="Timer" parent="."]
+autostart = true
+
 [node name="Anims" parent="." instance=ExtResource("2_37jb5")]
 position = Vector2(4.76837e-07, 4.76837e-07)
 animation = &"Idle"
@@ -34,31 +37,32 @@ scale = Vector2(0.999998, 0.999998)
 shape = SubResource("RectangleShape2D_j5m5t")
 
 [node name="RayCasts" type="Node2D" parent="."]
+position = Vector2(0, 1.875)
 
 [node name="RayCast2D1" type="RayCast2D" parent="RayCasts"]
 position = Vector2(-4.76837e-07, -4.76837e-07)
 rotation = -1.57135
-target_position = Vector2(0, 138.75)
+target_position = Vector2(0, 164.75)
 collide_with_areas = true
 script = ExtResource("3_bdrft")
 
 [node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
 position = Vector2(-4.76837e-07, -4.76837e-07)
-rotation = -1.62316
-target_position = Vector2(0, 138.75)
+rotation = -1.6057
+target_position = Vector2(0, 164.75)
 script = ExtResource("4_ldbfx")
 
 [node name="RayCast2D3" type="RayCast2D" parent="RayCasts"]
 position = Vector2(-4.76837e-07, -4.76837e-07)
-rotation = -1.51844
-target_position = Vector2(0, 138.75)
+rotation = -1.53589
+target_position = Vector2(0, 164.75)
 script = ExtResource("5_ipvo8")
 
 [node name="AttackRange" type="Area2D" parent="."]
-position = Vector2(4.76837e-07, 4.76837e-07)
+position = Vector2(5.68434e-14, 1.875)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
-position = Vector2(-9.53674e-07, -9.53674e-07)
+position = Vector2(-4.76837e-07, 2.38419e-07)
 shape = SubResource("CircleShape2D_xjfm8")
 debug_color = Color(1, 0, 0.0705882, 0.419608)
 
@@ -87,6 +91,7 @@ offset_right = 11.0
 offset_bottom = 12.0
 show_percentage = false
 
+[connection signal="timeout" from="timeAlive" to="." method="_on_time_alive_timeout"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]

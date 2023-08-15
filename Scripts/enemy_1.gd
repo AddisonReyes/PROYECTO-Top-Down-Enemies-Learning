@@ -12,6 +12,7 @@ var state = "Idle"
 var lookingRight = true
 var lookingDown = true
 
+var alive = true
 var maxHealth = 30
 var health = maxHealth
 var damage = 10
@@ -29,40 +30,52 @@ var RayCast2 = false
 var RayCast3 = false
 
 var ClockStarted = false
-var ForceIdle = false
 var canAttack = false
+var canChase = false
 
 #neural network variables
 var i_see_the_player = 0
 var attack_range = 0
 
-#neural_network(attack_range, i_see_the_player, sigmoid(-health))
-var weights = [[0.1, 0.1, 0.7], #Idle weights
-			   [0.3, 0.7, 0.1], #Chase weights
-			   [0.2, 0.6, 0.6], #Run weights
-			   [0.8, 0.4, 0.1]] #Attack weights
-var bias = [0.2, 0.1, 0.1, 0.2]
+var mutation_rate = 0.5
+
+var generation
+var weights
+var bias
+
+var timeAlive = 0
+var IKillThePlayer = false
+var damageToPlayer = 0
 
 
 func _ready():
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
+	
+	load_data()
+	mutation()
 
 
 func _physics_process(delta):
-	$RayCasts.look_at(player.position)
-	update_health()
-	
-	if RayCast1 or RayCast2 or RayCast3:
-		i_see_the_player = 1
+	if alive:
+		$RayCasts.look_at(player.position)
+		update_health()
 		
-	else:
-		if ClockStarted != true:
-			$ChaseTimer.start()
-			ClockStarted = true
-	
-	neural_network(attack_range, i_see_the_player, sigmoid(-health))
-	update_state()
+		if RayCast1 or RayCast2 or RayCast3:
+			i_see_the_player = 1
+			canChase = true
+			
+		else:
+			if ClockStarted != true:
+				$ChaseTimer.start()
+				ClockStarted = true
+		
+		neural_network(attack_range, i_see_the_player, sigmoid(-health))
+		update_state()
+		
+		#print(timeAlive)
+		if IKillThePlayer:
+			self.modulate =  Color(1, 1, 0, 1)
 
 
 func neural_network(attack_range, player_seen, health):
@@ -119,7 +132,7 @@ func update_state():
 
 			move_and_slide()
 	
-	if state == "Chase":
+	if state == "Chase" and canChase:
 		makepath()
 		var dir = to_local(nav_agent.get_next_path_position()).normalized()
 		
@@ -140,7 +153,8 @@ func update_state():
 		
 	if state == "Attack":
 		if canAttack:
-			player.take_damage(damage)
+			IKillThePlayer = player.take_damage(damage)
+			damageToPlayer += damage
 			
 		if lookingDown:
 			$Anims.play("Idle")
@@ -153,15 +167,25 @@ func makepath() -> void:
 
 
 func take_damage(damage):
+	if canChase == false:
+		canChase = true
+		
 	if i_see_the_player == 0:
 		i_see_the_player = 1
 	
 	if health <= 0:
-		queue_free()
+		death()
 
 	health -= damage
 	self.modulate = damageColor
 	$Timer.start()
+
+
+func death():
+	$CollisionShape2D.queue_free()
+	alive = false
+	
+	self.hide()
 
 
 func heals(healPoints):
@@ -184,6 +208,43 @@ func update_health():
 	
 	else:
 		healthBar.visible = true
+
+
+func mutation():
+	var num = rng.randf_range(0.0, 1.0)
+	if num < mutation_rate:
+		#print("\n\nAntes: \nPesos: ",weights, "\nBias: ", bias)
+		
+		var state = rng.randf_range(0, len(weights))
+		var weight = rng.randf_range(0, len(weights[state]))
+		weights[state][weight] = rng.randf_range(-0.9, 0.9)
+		
+		var bias_pos = rng.randf_range(0, len(bias))
+		bias[bias_pos] = rng.randf_range(-0.9, 0.9)
+		
+		#print("\nDespues: \nPesos: ",weights, "\nBias: ", bias)
+
+
+func fitness():
+	var points = 0
+	
+	points += timeAlive
+	points += damageToPlayer * 3
+	if IKillThePlayer:
+		points += 1600
+	
+	return points
+
+
+func load_data():
+	var file = FileAccess.open("res://Variables/Enemy_1_data.dat", FileAccess.READ)
+	var data = file.get_var()
+	
+	generation = data["Generation"]
+	weights = data["Weights"]
+	bias = data["Bias"]
+	
+	#print(data)
 
 
 func _on_attack_range_body_entered(body):
@@ -210,9 +271,17 @@ func _on_timer_timeout():
 
 func _on_chase_timer_timeout():
 	i_see_the_player = 0
-	ClockStarted = false
+	canChase = false
 
 
 func _on_heal_timer_timeout():
 	self.modulate = defaultColor
 	canHealAgain = true
+
+
+func _on_time_alive_timeout():
+	if alive:
+		timeAlive += 1
+	
+	if health <= 0:
+		$timeAlive.autostart = false
