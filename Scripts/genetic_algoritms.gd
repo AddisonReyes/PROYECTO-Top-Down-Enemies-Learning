@@ -54,6 +54,7 @@ func _ready():
 	spawn_position = $Node2D/Marker2D.global_position
 	$Node2D/Marker2D.global_position = spawn_position
 	player = get_node("Player")
+	player.fireRate -= 0.2
 	
 	create_population(enemy3)
 	enemy = 3

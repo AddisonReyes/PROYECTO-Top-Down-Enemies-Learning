@@ -1,6 +1,6 @@
 cffcf7cc5eb03ca20a5c49cce30ef619
-::res://::1692208711
-export_presets.cfg::TextFile::-1::1692207305::0::1::::<><>::
+::res://::1692210595
+export_presets.cfg::TextFile::-1::1692210015::0::1::::<><>::
 icon.svg::CompressedTexture2D::4177581521633267732::1689948194::1689948200::1::::<><>::
 README.md::TextFile::-1::1690942564::0::1::::<><>::
 README.ru.md::TextFile::-1::1690942564::0::1::::<><>::
@@ -21,16 +21,16 @@ texture_rect.gd::GDScript::-1::1690942564::0::1::::<><>::
 _animation_importer_base.gd::GDScript::-1::1690942564::0::1::::<><>::
 _importer_base.gd::GDScript::-1::1690942564::0::1::::<>EditorImportPlugin<>::
 ::res://Audio/::1689948269
-::res://Scenes/::1692209262
+::res://Scenes/::1692209864
 arrow.tscn::PackedScene::1583749136378910773::1692118300::0::1::::<><>::res://Scripts/arrow.gd<>uid://l664rbsyhq7d
-enemy_1.tscn::PackedScene::5598465248929198881::1692209262::0::1::::<><>::res://Scripts/enemy_1.gd<>uid://dvn8nywsy3yv8::::res://Sprites/Slime anims.aseprite<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
-enemy_2.tscn::PackedScene::2194871531758891385::1692209262::0::1::::<><>::res://Scripts/enemy_2.gd<>uid://dtetvr5sgxfxw::::res://Sprites/Bunnye2.aseprite<>uid://cbshtnvko3hvh::::res://Scenes/shield.tscn<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
-enemy_3.tscn::PackedScene::5940168291343781861::1692209262::0::1::::<><>::res://Scripts/enemy_3.gd<>uid://bqbbxjhd3aqpy::::res://Sprites/Bunnye3.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
+enemy_1.tscn::PackedScene::5598465248929198881::1692209864::0::1::::<><>::res://Scripts/enemy_1.gd<>uid://dvn8nywsy3yv8::::res://Sprites/Slime anims.aseprite<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
+enemy_2.tscn::PackedScene::2194871531758891385::1692209864::0::1::::<><>::res://Scripts/enemy_2.gd<>uid://dtetvr5sgxfxw::::res://Sprites/Bunnye2.aseprite<>uid://cbshtnvko3hvh::::res://Scenes/shield.tscn<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
+enemy_3.tscn::PackedScene::5940168291343781861::1692209864::0::1::::<><>::res://Scripts/enemy_3.gd<>uid://bqbbxjhd3aqpy::::res://Sprites/Bunnye3.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
 heart.tscn::PackedScene::8074196365605401826::1692118300::0::1::::<><>::res://Scripts/Heart.gd<>uid://bdsyjixo5n7bx
-Player.tscn::PackedScene::89635038922512345::1692209262::0::1::::<><>::res://Scripts/Player.gd<>uid://dimusiukkr1hh::::res://Sprites/Zanna anims.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite
+Player.tscn::PackedScene::89635038922512345::1692209864::0::1::::<><>::res://Scripts/Player.gd<>uid://dimusiukkr1hh::::res://Sprites/Zanna anims.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite
 shield.tscn::PackedScene::4880648675349485613::1691430357::0::1::::<><>::res://Scripts/shield.gd
-Test_Scene.tscn::PackedScene::8252805856503311317::1692209261::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/Test_Scene.gd<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://b7hjgtkjto404::::res://Sprites/Avys's Dungeon tilesett2.png<>uid://cqvpx6xwgn3bl::::res://Scenes/enemy_3.tscn<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
-Train_Scene.tscn::PackedScene::8151162976526826474::1692209261::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/genetic_algoritms.gd<>uid://b7hjgtkjto404::::res://Sprites/Avys's Dungeon tilesett2.png<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
+Test_Scene.tscn::PackedScene::8252805856503311317::1692209864::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/Test_Scene.gd<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://b7hjgtkjto404::::res://Sprites/Avys's Dungeon tilesett2.png<>uid://cqvpx6xwgn3bl::::res://Scenes/enemy_3.tscn<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
+Train_Scene.tscn::PackedScene::8151162976526826474::1692209864::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/genetic_algoritms.gd<>uid://b7hjgtkjto404::::res://Sprites/Avys's Dungeon tilesett2.png<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
 wall_2.tscn::PackedScene::1213775630316326508::1690388626::0::1::::<><>::
 ::res://Scripts/::1692208183
 arrow.gd::GDScript::-1::1692129077::0::1::::<>CharacterBody2D<>::
@@ -46,7 +46,7 @@ RayCast2D3.gd::GDScript::-1::1691434418::0::1::::<>RayCast2D<>::
 RayCast2D.gd::GDScript::-1::1691438581::0::1::::<>RayCast2D<>::
 shield.gd::GDScript::-1::1690761560::0::1::::Shield<>Node2D<>::
 Test_Scene.gd::GDScript::-1::1692208183::0::1::::<>Node2D<>::
-::res://Sprites/::1692209278
+::res://Sprites/::1692209813
 arrow.aseprite::PackedScene::3848446638958174622::1690986464::1690986228::1::::<><>::
 arrow.png::CompressedTexture2D::838007900485172923::1690986228::1690986228::1::::<><>::
 Avys's Dungeon obstacles tilesett.png::CompressedTexture2D::3168861341331497417::1690922242::1690922243::1::::<><>::
