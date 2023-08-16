@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7hjgtkjto404"
-path="res://.godot/imported/Avys's Dungeon tilesett2.png-1c860443323284f7f4d4f99e326cb379.ctex"
+uid="uid://d1vq8i0g3p55f"
+path="res://.godot/imported/Screenshot 2023-08-16 140559.png-7f8a5ab4abe380c61daadf8bd16c7197.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Avys's Dungeon tilesett2.png"
-dest_files=["res://.godot/imported/Avys's Dungeon tilesett2.png-1c860443323284f7f4d4f99e326cb379.ctex"]
+source_file="res://Sprites/Screenshot 2023-08-16 140559.png"
+dest_files=["res://.godot/imported/Screenshot 2023-08-16 140559.png-7f8a5ab4abe380c61daadf8bd16c7197.ctex"]
 
 [params]
 

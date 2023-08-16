@@ -10,10 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Avys's Dungeon"
+config/name="PROYECTO-Top-Down-Enemies-Learning"
 run/main_scene="res://Scenes/Test_Scene.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.160784, 0.141176, 0.0941176, 1)
+boot_splash/show_image=false
+config/icon="res://Sprites/Screenshot 2023-08-16 140559.png"
+config/windows_native_icon="res://Sprites/Screenshot-2023-08-16-140559.ico"
 
 [aseprite_importers]
 
@@ -21,8 +24,8 @@ aseprite_executable_path="C:/Program Files (x86)/Steam/steamapps/common/Aseprite
 
 [display]
 
-window/size/viewport_width=1160
-window/size/viewport_height=740
+window/size/viewport_width=960
+window/size/viewport_height=540
 window/size/mode=2
 window/size/resizable=false
 

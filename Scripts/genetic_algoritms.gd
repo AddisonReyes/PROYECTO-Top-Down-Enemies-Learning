@@ -52,9 +52,8 @@ func _ready():
 	#reset_data()
 	
 	spawn_position = $Node2D/Marker2D.global_position
-	player = get_node("Player")
-	
 	$Node2D/Marker2D.global_position = spawn_position
+	player = get_node("Player")
 	
 	create_population(enemy3)
 	enemy = 3

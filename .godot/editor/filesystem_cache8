@@ -1,6 +1,6 @@
 cffcf7cc5eb03ca20a5c49cce30ef619
-::res://::1692146345
-arrow.tscn::PackedScene::1583749136378910773::1690379705::0::1::::<><>::res://Scripts/arrow.gd
+::res://::1692208711
+export_presets.cfg::TextFile::-1::1692207305::0::1::::<><>::
 icon.svg::CompressedTexture2D::4177581521633267732::1689948194::1689948200::1::::<><>::
 README.md::TextFile::-1::1690942564::0::1::::<><>::
 README.ru.md::TextFile::-1::1690942564::0::1::::<><>::
@@ -21,36 +21,36 @@ texture_rect.gd::GDScript::-1::1690942564::0::1::::<><>::
 _animation_importer_base.gd::GDScript::-1::1690942564::0::1::::<><>::
 _importer_base.gd::GDScript::-1::1690942564::0::1::::<>EditorImportPlugin<>::
 ::res://Audio/::1689948269
-::res://Scenes/::1692154195
+::res://Scenes/::1692209262
 arrow.tscn::PackedScene::1583749136378910773::1692118300::0::1::::<><>::res://Scripts/arrow.gd<>uid://l664rbsyhq7d
-Avys's Dungeon tilesett2.png::CompressedTexture2D::4647472505913474083::1691010373::1691010373::1::::<><>::
-enemy_1.tscn::PackedScene::5598465248929198881::1692154195::0::1::::<><>::res://Scripts/enemy_1.gd<>uid://dvn8nywsy3yv8::::res://Sprites/Slime anims.aseprite<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
-enemy_2.tscn::PackedScene::2194871531758891385::1692154195::0::1::::<><>::res://Scripts/enemy_2.gd<>uid://dtetvr5sgxfxw::::res://Sprites/Bunnye2.aseprite<>uid://cbshtnvko3hvh::::res://Scenes/shield.tscn<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
-enemy_3.tscn::PackedScene::5940168291343781861::1692154195::0::1::::<><>::res://Scripts/enemy_3.gd<>uid://bqbbxjhd3aqpy::::res://Sprites/Bunnye3.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
+enemy_1.tscn::PackedScene::5598465248929198881::1692209262::0::1::::<><>::res://Scripts/enemy_1.gd<>uid://dvn8nywsy3yv8::::res://Sprites/Slime anims.aseprite<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
+enemy_2.tscn::PackedScene::2194871531758891385::1692209262::0::1::::<><>::res://Scripts/enemy_2.gd<>uid://dtetvr5sgxfxw::::res://Sprites/Bunnye2.aseprite<>uid://cbshtnvko3hvh::::res://Scenes/shield.tscn<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
+enemy_3.tscn::PackedScene::5940168291343781861::1692209262::0::1::::<><>::res://Scripts/enemy_3.gd<>uid://bqbbxjhd3aqpy::::res://Sprites/Bunnye3.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite<>res://Scripts/RayCast2D.gd<>res://Scripts/RayCast2D1.gd<>res://Scripts/RayCast2D2.gd<>res://Scripts/RayCast2D3.gd
 heart.tscn::PackedScene::8074196365605401826::1692118300::0::1::::<><>::res://Scripts/Heart.gd<>uid://bdsyjixo5n7bx
-Player.tscn::PackedScene::89635038922512345::1692154195::0::1::::<><>::res://Scripts/Player.gd<>uid://dimusiukkr1hh::::res://Sprites/Zanna anims.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite
+Player.tscn::PackedScene::89635038922512345::1692209262::0::1::::<><>::res://Scripts/Player.gd<>uid://dimusiukkr1hh::::res://Sprites/Zanna anims.aseprite<>uid://bbtppyvu4b231::::res://Sprites/Bow.aseprite
 shield.tscn::PackedScene::4880648675349485613::1691430357::0::1::::<><>::res://Scripts/shield.gd
-Test_Scene.gd::GDScript::-1::1692120949::0::1::::<>Node2D<>::
-Test_Scene.tscn::PackedScene::8252805856503311317::1692154254::0::1::::<><>::res://Scenes/Test_Scene.gd<>uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://b7hjgtkjto404::::res://Scenes/Avys's Dungeon tilesett2.png<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://cqvpx6xwgn3bl::::res://Scenes/enemy_3.tscn<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
-Train_Scene.tscn::PackedScene::8151162976526826474::1692154195::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/genetic_algoritms.gd<>uid://b7hjgtkjto404::::res://Scenes/Avys's Dungeon tilesett2.png<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
+Test_Scene.tscn::PackedScene::8252805856503311317::1692209261::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/Test_Scene.gd<>uid://cl06503qlhrk8::::res://Scenes/enemy_1.tscn<>uid://6jhhi0tmk6nt::::res://Scenes/enemy_2.tscn<>uid://b7hjgtkjto404::::res://Sprites/Avys's Dungeon tilesett2.png<>uid://cqvpx6xwgn3bl::::res://Scenes/enemy_3.tscn<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
+Train_Scene.tscn::PackedScene::8151162976526826474::1692209261::0::1::::<><>::uid://belp881bje375::::res://Sprites/Floor_noNav.png<>uid://bjojnbylojrt::::res://Scenes/Player.tscn<>uid://ivdfwv1mreua::::res://Sprites/Avys's Dungeon tilesett.png<>res://Scripts/genetic_algoritms.gd<>uid://b7hjgtkjto404::::res://Sprites/Avys's Dungeon tilesett2.png<>uid://dnbg3mwwtuxwk::::res://Scenes/heart.tscn
 wall_2.tscn::PackedScene::1213775630316326508::1690388626::0::1::::<><>::
-::res://Scripts/::1692154193
+::res://Scripts/::1692208183
 arrow.gd::GDScript::-1::1692129077::0::1::::<>CharacterBody2D<>::
 enemy_1.gd::GDScript::-1::1692154106::0::1::::Enemy1<>CharacterBody2D<>::
 enemy_2.gd::GDScript::-1::1692154106::0::1::::Enemy2<>CharacterBody2D<>::
-enemy_3.gd::GDScript::-1::1692154106::0::1::::Enemy3<>CharacterBody2D<>::
-genetic_algoritms.gd::GDScript::-1::1692151790::0::1::::<>Node2D<>::
-Heart.gd::GDScript::-1::1691513507::0::1::::<>Node2D<>::
-Player.gd::GDScript::-1::1692154193::0::1::::Player<>CharacterBody2D<>::
+enemy_3.gd::GDScript::-1::1692158789::0::1::::Enemy3<>CharacterBody2D<>::
+genetic_algoritms.gd::GDScript::-1::1692207284::0::1::::<>Node2D<>::
+Heart.gd::GDScript::-1::1692154391::0::1::::<>Node2D<>::
+Player.gd::GDScript::-1::1692205109::0::1::::Player<>CharacterBody2D<>::
 RayCast2D1.gd::GDScript::-1::1691434418::0::1::::<>RayCast2D<>::
 RayCast2D2.gd::GDScript::-1::1691434418::0::1::::<>RayCast2D<>::
 RayCast2D3.gd::GDScript::-1::1691434418::0::1::::<>RayCast2D<>::
 RayCast2D.gd::GDScript::-1::1691438581::0::1::::<>RayCast2D<>::
 shield.gd::GDScript::-1::1690761560::0::1::::Shield<>Node2D<>::
-::res://Sprites/::1691508359
+Test_Scene.gd::GDScript::-1::1692208183::0::1::::<>Node2D<>::
+::res://Sprites/::1692209278
 arrow.aseprite::PackedScene::3848446638958174622::1690986464::1690986228::1::::<><>::
 arrow.png::CompressedTexture2D::838007900485172923::1690986228::1690986228::1::::<><>::
 Avys's Dungeon obstacles tilesett.png::CompressedTexture2D::3168861341331497417::1690922242::1690922243::1::::<><>::
+Avys's Dungeon tilesett2.png::CompressedTexture2D::4647472505913474083::1691010373::1692207064::1::::<><>::
 Avys's Dungeon tilesett.png::CompressedTexture2D::605054951039964672::1690922610::1690922610::1::::<><>::
 Bow.aseprite::PackedScene::2496771540407169494::1690992046::1690992047::1::::<><>::uid://c3xuf02pwu7q0
 Bow.png::CompressedTexture2D::6786834301924564697::1690992046::1690991508::1::::<><>::
@@ -61,9 +61,10 @@ Bunnye3.png::CompressedTexture2D::4864871815677793349::1690986425::1690985857::1
 Floor_noNav.png::CompressedTexture2D::2690855673123369374::1690998728::1690998728::1::::<><>::
 Heart.aseprite::PackedScene::2635619750545850113::1691508343::1691508358::1::::<><>::uid://ddhr7dnqr0usi
 Heart.png::CompressedTexture2D::7385368738957003988::1691508358::1691508359::1::::<><>::
+Screenshot 2023-08-16 140559.png::CompressedTexture2D::9028554780704092209::1692209278::1692209278::1::::<><>::
 Slime anims.aseprite::PackedScene::8662092849759956587::1690986464::1690986441::1::::<><>::uid://cm5tocl35dq6o
 Slime anims.png::CompressedTexture2D::5678217570993583652::1690986441::1690985825::1::::<><>::
 Zanna anims.aseprite::PackedScene::7746792268929202501::1690986671::1690986686::1::::<><>::uid://dgh8mvxlqqk2v
 Zanna anims.png::CompressedTexture2D::7596871986516734963::1690986686::1690975075::1::::<><>::
-::res://Variables/::1692081243
+::res://Variables/::1692199480
 WeightAndBias(Start).txt::TextFile::-1::1692081243::0::1::::<><>::

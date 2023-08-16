@@ -29,7 +29,6 @@ var damageColor = Color(1, 0, 0, 1)
 var healColor = Color(0, 1, 0, 1)
 var defaultColor = Color(1, 1, 1, 1)
 
-
 func _ready():
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
@@ -39,9 +38,10 @@ func _physics_process(delta):
 	update_health()
 	
 	if health <= 0 and alive:
-		print("Moriste")
+		$CollisionShape2D.queue_free()
 		alive = false
-		$Anims.play("Death")
+			
+		self.hide()
 	
 	if alive:
 		var direction = _player_movement()
@@ -98,8 +98,6 @@ func _physics_process(delta):
 
 func take_damage(damage):
 	if invulnerable != true and alive:
-		print("Te han atacado -", damage)
-		
 		self.modulate = damageColor
 		health -= damage
 		

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bjojnbylojrt" path="res://Scenes/Player.tscn" id="1_d7fjo"]
 [ext_resource type="Texture2D" uid="uid://ivdfwv1mreua" path="res://Sprites/Avys's Dungeon tilesett.png" id="1_euo15"]
 [ext_resource type="Script" path="res://Scripts/genetic_algoritms.gd" id="1_p3rlu"]
-[ext_resource type="Texture2D" uid="uid://b7hjgtkjto404" path="res://Scenes/Avys's Dungeon tilesett2.png" id="3_n3kpx"]
+[ext_resource type="Texture2D" uid="uid://b7hjgtkjto404" path="res://Sprites/Avys's Dungeon tilesett2.png" id="4_ie0qs"]
 [ext_resource type="PackedScene" uid="uid://dnbg3mwwtuxwk" path="res://Scenes/heart.tscn" id="4_uxq7d"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_leedh"]
@@ -784,7 +784,7 @@ texture = ExtResource("1_4itvl")
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qinnv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fttjt"]
-texture = ExtResource("3_n3kpx")
+texture = ExtResource("4_ie0qs")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
