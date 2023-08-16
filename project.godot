@@ -21,8 +21,8 @@ aseprite_executable_path="C:/Program Files (x86)/Steam/steamapps/common/Aseprite
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=1160
+window/size/viewport_height=740
 window/size/mode=2
 window/size/resizable=false
 

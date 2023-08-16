@@ -14,23 +14,81 @@ var enemy3 = Enemy_3.instantiate()
 var played_is_alive = true
 var spawn_position
 
-var population_size = 20
+var population_size = 10
 var population = []
-var enemy = 1
+var enemy
+
+var WeightAndBias_Start = {
+	1: {"weights": [[0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1]],
+		"bias": [0.1, 0.1, 0.1, 0.1],
+		"Generation": 0,
+		"fitness": 0},
+				
+	2: {"weights": [[0.1, 0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1, 0.1], 
+					[0.1, 0.1, 0.1, 0.1]],
+		"bias": [0.1, 0.1, 0.1, 0.1, 0.1],
+		"Generation": 0,
+		"fitness": 0},
+				
+	3: {"weights": [[0.1, 0.1, 0.1, 0.1, 0.1],
+					[0.1, 0.1, 0.1, 0.1, 0.1],
+					[0.1, 0.1, 0.1, 0.1, 0.1],
+					[0.1, 0.1, 0.1, 0.1, 0.1],
+					[0.1, 0.1, 0.1, 0.1, 0.1]],
+		"bias": [0.1, 0.1, 0.1, 0.1, 0.1],
+		"Generation": 0,
+		"fitness": 0}
+	}
 
 
 func _ready():
+	#reset_enemy_data(3)
+	#reset_data()
+	
 	spawn_position = $Node2D/Marker2D.global_position
 	player = get_node("Player")
 	
 	$Node2D/Marker2D.global_position = spawn_position
-	create_population(enemy1)
+	
+	create_population(enemy3)
+	enemy = 3
 
 
 func _process(delta):
 	if player.alive == false and played_is_alive:
 		played_is_alive = false
 		search_best_gen()
+	
+	if Input.is_key_pressed(KEY_R):
+		search_best_gen()
+
+
+func reset_data():
+	for enemy in range(1, 4):
+		var weights = WeightAndBias_Start[enemy]["weights"]
+		var bias = WeightAndBias_Start[enemy]["bias"]
+		var gen = WeightAndBias_Start[enemy]["Generation"]
+		var fitness = WeightAndBias_Start[enemy]["fitness"]
+		
+		save_data(weights, bias, gen, fitness, enemy)
+	
+	print("\nDATOS RESETEADOS")
+
+
+func reset_enemy_data(num):
+	var weights = WeightAndBias_Start[num]["weights"]
+	var bias = WeightAndBias_Start[num]["bias"]
+	var gen = WeightAndBias_Start[num]["Generation"]
+	var fitness = WeightAndBias_Start[num]["fitness"]
+	
+	save_data(weights, bias, gen, fitness, num)
+	print("\nENEMIGO RESETEADO")
 
 
 func create_population(enemy):
@@ -38,26 +96,30 @@ func create_population(enemy):
 		var enemy_aux = enemy.duplicate()
 		
 		enemy_aux.position = $Node2D/Marker2D.global_position
-		$Node2D/Marker2D.global_position += Vector2(0, 5)
+		$Node2D/Marker2D.global_position += Vector2(0, 16)
 		
 		population.append(enemy_aux)
+		enemy_aux.mutate = true
+		
 		add_child(enemy_aux)
 	
 	#print(population)
 
 
 func generation():
-	var file = FileAccess.open("res://Variables/Enemy_1_data.dat", FileAccess.READ)
+	var path = "res://Variables/Enemy_" + str(enemy) + "_data.dat"
+	var file = FileAccess.open(path, FileAccess.READ)
 	var data = file.get_var()
 	
 	print("\n\nGENERACION # ",data["Generation"] + 1,"\n")
 
 
 func last_generation_fitness():
-	var file = FileAccess.open("res://Variables/Enemy_1_data.dat", FileAccess.READ)
+	var path = "res://Variables/Enemy_" + str(enemy) + "_data.dat"
+	var file = FileAccess.open(path, FileAccess.READ)
 	var data = file.get_var()
 	
-	return data["fitness"]
+	return data["fitness"] / 2
 
 
 func save_data(weights, bias, gen, fitness, enemy):
@@ -81,16 +143,16 @@ func load_data(enemy):
 
 func search_best_gen():
 	var best_gen_fitness = 0
-	var best_gen
+	var best_gen = population[0]
 	
 	for gen in population:
 		if gen.fitness() > best_gen_fitness:
 			best_gen_fitness = gen.fitness()
 			best_gen = gen
 	
-	if best_gen.fitness() >= last_generation_fitness():
-		save_data(best_gen.weights, best_gen.bias, best_gen.generation + 1, best_gen.fitness(), enemy)
-		print("\nMEJOR GEN GUARDADO!!!\nPesos: ",best_gen.weights, "\nBias: ", best_gen.bias)
+	if best_gen_fitness >= last_generation_fitness():
+		save_data(best_gen.weights, best_gen.bias, best_gen.generation + 1, best_gen_fitness, enemy)
+		print("\n\nMEJOR GEN GUARDADO!!!\nPesos: ",best_gen.weights, "\nBias: ", best_gen.bias)
 		
 	get_tree().reload_current_scene()
 
@@ -104,7 +166,7 @@ func _on_timer_timeout():
 	var vivos = 0
 	
 	for gen in population:
-		print("#",gen_num," Vivo: ",gen.alive," Fitness: ",gen.fitness())
+		print("Gen #",gen_num,", Vivo: ",gen.alive,", Fitness: ",gen.fitness())
 		gen_num += 1
 		
 		if gen.alive == false:

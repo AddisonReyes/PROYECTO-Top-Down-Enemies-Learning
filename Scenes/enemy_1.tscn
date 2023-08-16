@@ -68,6 +68,8 @@ debug_color = Color(1, 0, 0.0705882, 0.419608)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
+[node name="AttackCooldown" type="Timer" parent="."]
+
 [node name="NavegationTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
@@ -94,6 +96,7 @@ show_percentage = false
 [connection signal="timeout" from="timeAlive" to="." method="_on_time_alive_timeout"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="NavegationTimer" to="." method="_on_navegation_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]

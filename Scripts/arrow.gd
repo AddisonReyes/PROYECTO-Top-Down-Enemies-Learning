@@ -4,8 +4,12 @@ extends CharacterBody2D
 var arrowVelocity = Vector2(0, 0)
 var direction = Vector2(0, 0)
 var orientation_fixed = true
+var playerKiled = false
 var damage = 5
 var speed = 500
+
+var disableFitness = false
+var parent
 
 
 func _ready():
@@ -29,7 +33,21 @@ func _on_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
-	if body is Player or body is Enemy1 or body is Enemy2 or body is Enemy3:
+	if body is Enemy1 or body is Enemy2 or body is Enemy3:
 		body.take_damage(damage)
+		if disableFitness:
+			body.disableFitness = disableFitness
+	
+	if body is Player:
+		playerKiled = body.take_damage(damage)
+		
+		if parent is Player:
+			queue_free()
+			return
+			
+		parent.damageToPlayer += damage
+			
+		if playerKiled:
+			parent.IKillThePlayer = true
 	
 	queue_free()

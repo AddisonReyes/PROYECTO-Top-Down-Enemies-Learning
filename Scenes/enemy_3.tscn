@@ -26,6 +26,11 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_abrmj")
 
+[node name="AttackCooldown" type="Timer" parent="."]
+
+[node name="timeAlive" type="Timer" parent="."]
+autostart = true
+
 [node name="Anims" parent="." instance=ExtResource("2_ells7")]
 position = Vector2(4.76837e-07, 4.76837e-07)
 autoplay = "Idle"
@@ -142,6 +147,8 @@ offset_right = 11.0
 offset_bottom = 12.0
 show_percentage = false
 
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="timeAlive" to="." method="_on_time_alive_timeout"]
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_melee_range_body_exited"]
 [connection signal="body_entered" from="EscapeArea" to="." method="_on_escape_area_body_entered"]

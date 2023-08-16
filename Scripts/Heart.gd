@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var HealthPoints = 25
+var HealthPoints = 35
 
 
 func _ready():

@@ -4,8 +4,9 @@ class_name Enemy2
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var player = get_parent().get_node("Player")
 const ArrowPath = preload("res://Scenes/arrow.tscn")
+var rng = RandomNumberGenerator.new()
 
-const SPEED = 167.5
+const SPEED = 170.5
 var player_position
 var target_position
 var state = "Idle"
@@ -13,17 +14,18 @@ var state = "Idle"
 var lookingRight = true
 var lookingDown = true
 
-var maxHealth = 45
+var alive = true
+var maxHealth = 60
 var health = maxHealth
-var damageRange = 10
-var damageMelee = 5
+var damageRange = 15
 
 var healthBar
 var healPoints = 5
 var canHealAgain = true
 
 var can_shoot = true
-var fireRate = 1
+var canChase = false
+var fireRate = 0.9
 
 var damageColor = Color(1, 0, 0, 1)
 var healColor = Color(0, 1, 0, 1)
@@ -35,15 +37,25 @@ var RayCast2 = false
 var RayCast3 = false
 
 var ClockStarted = false
-var ForceIdle = false
+var useShield = false
 
 #neural network variables
 var i_see_the_player = 0
 var attack_range = 0
 var melee_range = 0
 
+var mutation_rate = 0.5
+
+var generation
 var weights
 var bias
+
+var timeAlive = 0
+var IKillThePlayer = false
+var damageToPlayer = 0
+
+var disableFitness = false
+var mutate = false
 
 
 func _ready():
@@ -53,29 +65,37 @@ func _ready():
 	healthBar.max_value = maxHealth
 	
 	load_data()
+	if mutate:
+		mutation()
 
 
 func _physics_process(delta):
-	$RayCastsAttack.look_at(player.position)
-	$RayCastsChase.look_at(player.position)
-	update_health()
-	
-	if RayCast1 or RayCast2 or RayCast3:
-		i_see_the_player = 1
+	if alive:
+		$RayCastsAttack.look_at(player.position)
+		$RayCastsChase.look_at(player.position)
+		$Shield.look_at(player.position)
+		update_health()
 		
-	else:
-		if ClockStarted != true:
-			$ChaseTimer.start()
-			ClockStarted = true
-	
-	if AttackRayCast:
-		attack_range = 1
+		if RayCast1 or RayCast2 or RayCast3:
+			i_see_the_player = 1
+			canChase = true
+			
+		else:
+			if ClockStarted != true:
+				$ChaseTimer.start()
+				ClockStarted = true
 		
-	else:
-		attack_range = 0
-	
-	neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range)
-	update_state()
+		if AttackRayCast:
+			attack_range = 1
+			
+		else:
+			attack_range = 0
+		
+		neural_network(attack_range, i_see_the_player, sigmoid(-health), melee_range)
+		update_state()
+		
+		if IKillThePlayer:
+			self.modulate =  Color(1, 1, 0, 1)
 
 
 func neural_network(attack_range, player_seen, health, melee_range):
@@ -99,7 +119,6 @@ func neural_network(attack_range, player_seen, health, melee_range):
 	elif max_index == 2: next_state = "Run"
 	elif max_index == 3: next_state = "AttackRange"
 	else: next_state = "ShieldRange"
-
 	if next_state != state:
 		state = next_state
 		#print(next_state)
@@ -126,7 +145,7 @@ func update_state():
 			
 		$Node2D.rotation = 0
 	
-	if state == "Chase":
+	if state == "Chase" and canChase:
 		var dir = to_local(nav_agent.get_next_path_position()).normalized()
 		
 		if dir[0] > 0: lookingRight = true
@@ -166,30 +185,40 @@ func update_state():
 			shoot()
 	
 	if state == "ShieldRange":
-		player_position = player.position
-		$Shield.look_at(player_position)
+		useShield = true
+		activate_shield()
 		
 		if lookingDown:
 			$Anims.play("Idle")
 		else:
 			$Anims.play("Idle2")
-
-
-func _process(delta):
-	pass
+	
+	else:
+		deactivate_shield()
+		useShield = false
 
 
 func take_damage(damage):
+	if canChase == false:
+		canChase = true
+		
 	if i_see_the_player == 0:
 		i_see_the_player = 1
 	
 	if health <= 0:
-		queue_free()
+		death()
 
-	if state != "ShieldRange":
-		self.modulate = damageColor
-		health -= damage
-		$Timer.start()
+	self.modulate = damageColor
+	health -= damage
+	$Timer.start()
+
+
+func death():
+	$CollisionShape2D.queue_free()
+	deactivate_shield()
+	alive = false
+	
+	self.hide()
 
 
 func heals(healPoints):
@@ -218,6 +247,7 @@ func shoot():
 	var arrow = ArrowPath.instantiate()
 	get_parent().add_child(arrow)
 	
+	arrow.parent = self
 	arrow.position = $Node2D/Marker2D.global_position
 	arrow.direction = $Node2D/direction.global_position
 	arrow.arrowVelocity = player.position - arrow.position
@@ -233,17 +263,61 @@ func deactivate_shield():
 
 
 func activate_shield():
-	$Shield.activate_shield()
+	if alive and useShield:
+		$Shield.activate_shield()
 
 
 func makepath() -> void:
 	nav_agent.target_position = player.position
 
 
+func mutation():
+	var num = rng.randf_range(0.0, 1.0)
+	if num < mutation_rate:
+		#print("\n\nAntes: \nPesos: ",weights, "\nBias: ", bias)
+		
+		var state = rng.randf_range(0, len(weights))
+		var weight = rng.randf_range(0, len(weights[state]))
+		weights[state][weight] = rng.randf_range(-0.9, 0.9)
+		
+		state = rng.randf_range(0, len(weights))
+		weight = rng.randf_range(0, len(weights[state]))
+		weights[state][weight] = rng.randf_range(-0.9, 0.9)
+		
+		state = rng.randf_range(0, len(weights))
+		weight = rng.randf_range(0, len(weights[state]))
+		weights[state][weight] = rng.randf_range(-0.9, 0.9)
+		
+		var bias_pos = rng.randf_range(0, len(bias))
+		bias[bias_pos] = rng.randf_range(-0.9, 0.9)
+		
+		#print("\nDespues: \nPesos: ",weights, "\nBias: ", bias)
+
+
+func fitness():
+	var points = 0
+	
+	if damageToPlayer == 0:
+		points += timeAlive / 2
+	
+	else:
+		points += timeAlive
+		points += damageToPlayer
+		
+	if IKillThePlayer:
+		points += 200
+	
+	if disableFitness:
+		points = 0
+	
+	return points
+
+
 func load_data():
 	var file = FileAccess.open("res://Variables/Enemy_2_data.dat", FileAccess.READ)
 	var data = file.get_var()
 	
+	generation = data["Generation"]
 	weights = data["Weights"]
 	bias = data["Bias"]
 	
@@ -252,14 +326,14 @@ func load_data():
 
 func _on_melee_range_body_entered(body):
 	if body == player:
-		activate_shield()
+		useShield = true
 		can_shoot = false
 		melee_range = 1
 
 
 func _on_melee_range_body_exited(body):
 	if body == player:
-		deactivate_shield()
+		useShield = false
 		can_shoot = true
 		melee_range = 0
 
@@ -279,9 +353,17 @@ func _on_timer_timeout():
 func _on_chase_timer_timeout():
 	i_see_the_player = 0
 	ClockStarted = false
-	ForceIdle = true
+	canChase = false
 
 
 func _on_heal_timer_timeout():
 	self.modulate = defaultColor
 	canHealAgain = true
+
+
+func _on_time_alive_timeout():
+	if alive:
+		timeAlive += 1
+
+	if health <= 0:
+		$timeAlive.autostart = false

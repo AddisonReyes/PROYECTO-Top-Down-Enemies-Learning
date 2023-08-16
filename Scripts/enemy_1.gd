@@ -6,7 +6,7 @@ class_name Enemy1
 @onready var player = get_parent().get_node("Player")
 var rng = RandomNumberGenerator.new()
 
-const SPEED = 185.5
+const SPEED = 190
 var state = "Idle"
 
 var lookingRight = true
@@ -32,6 +32,7 @@ var RayCast3 = false
 var ClockStarted = false
 var canAttack = false
 var canChase = false
+var cooldown = true
 
 #neural network variables
 var i_see_the_player = 0
@@ -47,13 +48,17 @@ var timeAlive = 0
 var IKillThePlayer = false
 var damageToPlayer = 0
 
+var disableFitness = false
+var mutate = false
+
 
 func _ready():
 	healthBar = $HealthBar
 	healthBar.max_value = maxHealth
 	
 	load_data()
-	mutation()
+	if mutate:
+		mutation()
 
 
 func _physics_process(delta):
@@ -152,9 +157,12 @@ func update_state():
 		move_and_slide()
 		
 	if state == "Attack":
-		if canAttack:
+		if canAttack and cooldown:
 			IKillThePlayer = player.take_damage(damage)
 			damageToPlayer += damage
+			cooldown = false
+			
+			$AttackCooldown.start()
 			
 		if lookingDown:
 			$Anims.play("Idle")
@@ -219,6 +227,10 @@ func mutation():
 		var weight = rng.randf_range(0, len(weights[state]))
 		weights[state][weight] = rng.randf_range(-0.9, 0.9)
 		
+		state = rng.randf_range(0, len(weights))
+		weight = rng.randf_range(0, len(weights[state]))
+		weights[state][weight] = rng.randf_range(-0.9, 0.9)
+		
 		var bias_pos = rng.randf_range(0, len(bias))
 		bias[bias_pos] = rng.randf_range(-0.9, 0.9)
 		
@@ -228,10 +240,18 @@ func mutation():
 func fitness():
 	var points = 0
 	
-	points += timeAlive
-	points += damageToPlayer * 3
+	if damageToPlayer == 0:
+		points += timeAlive / 2
+	
+	else:
+		points += timeAlive
+		points += damageToPlayer
+		
 	if IKillThePlayer:
-		points += 1600
+		points += 200
+	
+	if disableFitness:
+		points = 0
 	
 	return points
 
@@ -285,3 +305,7 @@ func _on_time_alive_timeout():
 	
 	if health <= 0:
 		$timeAlive.autostart = false
+
+
+func _on_attack_cooldown_timeout():
+	cooldown = true
