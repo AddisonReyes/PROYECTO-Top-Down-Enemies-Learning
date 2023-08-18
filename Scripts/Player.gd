@@ -38,10 +38,7 @@ func _physics_process(delta):
 	update_health()
 	
 	if health <= 0 and alive:
-		$CollisionShape2D.queue_free()
-		alive = false
-			
-		self.hide()
+		death()
 	
 	if alive:
 		var direction = _player_movement()
@@ -98,6 +95,7 @@ func _physics_process(delta):
 
 func take_damage(damage):
 	if invulnerable != true and alive:
+		$PlayerHurt.play()
 		self.modulate = damageColor
 		health -= damage
 		
@@ -111,8 +109,17 @@ func take_damage(damage):
 			return false
 
 
+func death():
+	$Arco.hide()
+	
+	$PlayerDeath.play()
+	$Anims.play("Death")
+	alive = false
+
+
 func heals(healPoints):
 	if health < maxHealth:
+		$Heal.play()
 		health += healPoints
 		
 		self.modulate = healColor
@@ -133,6 +140,7 @@ func update_health():
 
 
 func singleShoot():
+	$bow.play()
 	var arrow = ArrowPath.instantiate()
 	get_parent().add_child(arrow)
 		
@@ -148,6 +156,7 @@ func singleShoot():
 	$FireRate.start()
 
 func multiShoot():
+	$bow.play()
 	var arrow1 = ArrowPath.instantiate()
 	var arrow2 = ArrowPath.instantiate()
 	var arrow3 = ArrowPath.instantiate()
@@ -190,7 +199,8 @@ func _player_teleport(direction):
 		
 	else:
 		pass
-		
+	
+	$TP.play()
 	$TPTimer.wait_time = TPtime
 	$TPTimer.start()
 	return direction

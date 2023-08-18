@@ -4,6 +4,7 @@ class_name Enemy1
 
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var player = get_parent().get_node("Player")
+const HeartPath = preload("res://Scenes/heart.tscn")
 var rng = RandomNumberGenerator.new()
 
 const SPEED = 190
@@ -39,6 +40,7 @@ var i_see_the_player = 0
 var attack_range = 0
 
 var mutation_rate = 0.5
+var heart_drop = 0.2
 
 var generation
 var weights
@@ -156,7 +158,7 @@ func update_state():
 		velocity = dir * SPEED
 		move_and_slide()
 		
-	if state == "Attack":
+	if state == "Attack" and player.alive:
 		if canAttack and cooldown:
 			IKillThePlayer = player.take_damage(damage)
 			damageToPlayer += damage
@@ -175,6 +177,7 @@ func makepath() -> void:
 
 
 func take_damage(damage):
+	$EnemyHurt.play()
 	if canChase == false:
 		canChase = true
 		
@@ -190,14 +193,23 @@ func take_damage(damage):
 
 
 func death():
+	$EnemyDeath.play()
 	$CollisionShape2D.queue_free()
 	alive = false
 	
 	self.hide()
+	
+	var num = rng.randf_range(0.0, 1.0)
+	if num < heart_drop:
+		var new_item = HeartPath.instantiate()
+		
+		new_item.position = self.position
+		get_parent().add_child(new_item)
 
 
 func heals(healPoints):
 	if health < maxHealth:
+		$Heal.play()
 		canHealAgain = false
 		health += healPoints
 		
@@ -309,3 +321,8 @@ func _on_time_alive_timeout():
 
 func _on_attack_cooldown_timeout():
 	cooldown = true
+
+
+func _on_enemy_death_finished():
+	if mutate == false:
+		queue_free()

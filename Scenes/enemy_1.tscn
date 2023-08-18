@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cl06503qlhrk8"]
+[gd_scene load_steps=11 format=3 uid="uid://cl06503qlhrk8"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_1.gd" id="1_ipvh7"]
 [ext_resource type="PackedScene" uid="uid://dvn8nywsy3yv8" path="res://Sprites/Slime anims.aseprite" id="2_37jb5"]
 [ext_resource type="Script" path="res://Scripts/RayCast2D1.gd" id="3_bdrft"]
 [ext_resource type="Script" path="res://Scripts/RayCast2D2.gd" id="4_ldbfx"]
 [ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="5_ipvo8"]
+[ext_resource type="AudioStream" uid="uid://baf604urkxuac" path="res://Audio/EnemyDeath.wav" id="6_a85qx"]
+[ext_resource type="AudioStream" uid="uid://b4apw6huba0au" path="res://Audio/Enemy1Hurt.wav" id="7_5vwlk"]
+[ext_resource type="AudioStream" uid="uid://cyowdvu7qjare" path="res://Audio/Heal.wav" id="8_2qre6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5m5t"]
 size = Vector2(12.5, 9.37501)
@@ -93,6 +96,19 @@ offset_right = 11.0
 offset_bottom = 12.0
 show_percentage = false
 
+[node name="EnemyDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_a85qx")
+volume_db = -32.74
+
+[node name="EnemyHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_5vwlk")
+volume_db = -33.384
+
+[node name="Heal" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_2qre6")
+volume_db = -8.345
+pitch_scale = 0.83
+
 [connection signal="timeout" from="timeAlive" to="." method="_on_time_alive_timeout"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
@@ -101,3 +117,4 @@ show_percentage = false
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
+[connection signal="finished" from="EnemyDeath" to="." method="_on_enemy_death_finished"]

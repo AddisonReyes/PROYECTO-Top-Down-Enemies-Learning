@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjojnbylojrt"]
+[gd_scene load_steps=10 format=3 uid="uid://bjojnbylojrt"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_rfk20"]
 [ext_resource type="PackedScene" uid="uid://dimusiukkr1hh" path="res://Sprites/Zanna anims.aseprite" id="2_wshjl"]
 [ext_resource type="PackedScene" uid="uid://bbtppyvu4b231" path="res://Sprites/Bow.aseprite" id="3_c2ojs"]
+[ext_resource type="AudioStream" uid="uid://besx5qpr7ko3i" path="res://Audio/PlayerDeath.wav" id="4_e8tuj"]
+[ext_resource type="AudioStream" uid="uid://bfny4hw6vtlae" path="res://Audio/PlayerHurt.wav" id="5_q14ll"]
+[ext_resource type="AudioStream" uid="uid://bmhmwmkv6y6jb" path="res://Audio/PlayerHeal.wav" id="6_dlb0t"]
+[ext_resource type="AudioStream" uid="uid://cr5muylaxbu05" path="res://Audio/PlayerTP.wav" id="7_7j8w7"]
+[ext_resource type="AudioStream" uid="uid://dhihorigtxc2o" path="res://Audio/bow.wav" id="8_sjcmv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cojv8"]
 size = Vector2(6, 10)
@@ -18,13 +23,12 @@ script = ExtResource("1_rfk20")
 
 [node name="Anims" parent="." instance=ExtResource("2_wshjl")]
 position = Vector2(-0.124997, -0.124997)
-animation = &"Death"
 autoplay = "Idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visibility_layer = 513
 position = Vector2(-0.124997, -0.124997)
-zoom = Vector2(1.3, 1.3)
+zoom = Vector2(1.2, 1.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.124997, -0.124997)
@@ -89,6 +93,27 @@ offset_top = 8.0
 offset_right = 13.0
 offset_bottom = 12.0
 show_percentage = false
+
+[node name="PlayerDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_e8tuj")
+
+[node name="PlayerHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_q14ll")
+volume_db = -17.333
+
+[node name="Heal" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_dlb0t")
+volume_db = -26.964
+
+[node name="TP" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_7j8w7")
+volume_db = -14.123
+pitch_scale = 0.38
+attenuation = 0.482968
+
+[node name="bow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_sjcmv")
+volume_db = -20.939
 
 [connection signal="timeout" from="TPTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

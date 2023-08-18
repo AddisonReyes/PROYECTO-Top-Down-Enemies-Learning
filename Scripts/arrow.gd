@@ -9,6 +9,7 @@ var damage = 5
 var speed = 500
 
 var disableFitness = false
+var canCollide = true
 var parent
 
 
@@ -33,21 +34,34 @@ func _on_timer_timeout():
 
 
 func _on_area_2d_body_entered(body):
-	if body is Enemy1 or body is Enemy2 or body is Enemy3:
-		body.take_damage(damage)
-		if disableFitness:
-			body.disableFitness = disableFitness
-	
-	if body is Player:
-		playerKiled = body.take_damage(damage)
-		
-		if parent is Player:
+	if canCollide:
+		if body is Enemy1 or body is Enemy2 or body is Enemy3:
+			body.take_damage(damage)
+			if disableFitness:
+				body.disableFitness = disableFitness
+			
 			queue_free()
-			return
+		
+		elif body is Player:
+			playerKiled = body.take_damage(damage)
 			
-		parent.damageToPlayer += damage
+			if parent is Player:
+				queue_free()
+				return
+				
+			parent.damageToPlayer += damage
+				
+			if playerKiled:
+				parent.IKillThePlayer = true
 			
-		if playerKiled:
-			parent.IKillThePlayer = true
-	
+			queue_free()
+		
+		else:
+			$AudioStreamPlayer2D.play()
+			arrowVelocity = Vector2(0, 0)
+			canCollide = false
+			self.hide()
+
+
+func _on_audio_stream_player_2d_finished():
 	queue_free()

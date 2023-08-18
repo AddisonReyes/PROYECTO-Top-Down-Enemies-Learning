@@ -8,6 +8,7 @@ var player
 #960 x 540
 func _ready():
 	player = get_node("Player")
+	$Player/Music.play()
 
 
 func _process(delta):
@@ -24,3 +25,7 @@ func restart():
 func _on_timer_timeout():
 	get_tree().reload_current_scene()
 	clockStarted = false
+
+
+func _on_music_finished():
+	$Player/Music.play()

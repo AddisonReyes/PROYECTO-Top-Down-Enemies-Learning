@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://wtgd8ee835vd"]
+[gd_scene load_steps=6 format=3 uid="uid://wtgd8ee835vd"]
 
 [ext_resource type="Script" path="res://Scripts/arrow.gd" id="1_yaege"]
 [ext_resource type="Texture2D" uid="uid://l664rbsyhq7d" path="res://Sprites/arrow.png" id="2_q10hb"]
+[ext_resource type="AudioStream" uid="uid://cfj6bk77pn35w" path="res://Audio/Wall.wav" id="3_n31fi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21jde"]
 size = Vector2(10, 4)
@@ -36,5 +37,11 @@ collision_mask = 32769
 shape = SubResource("RectangleShape2D_jholo")
 debug_color = Color(0.839216, 0.384314, 0, 0.419608)
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_n31fi")
+volume_db = -27.321
+pitch_scale = 1.1
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

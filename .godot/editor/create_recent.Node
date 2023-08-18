@@ -1,6 +1,8 @@
+Node2D
+AudioStreamPlayer2D
+AudioListener2D
 Timer
 Marker2D
-Node2D
 BackBufferCopy
 Area2D
 ProgressBar

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqvpx6xwgn3bl"]
+[gd_scene load_steps=15 format=3 uid="uid://cqvpx6xwgn3bl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_3.gd" id="1_abrmj"]
 [ext_resource type="PackedScene" uid="uid://bqbbxjhd3aqpy" path="res://Sprites/Bunnye3.aseprite" id="2_ells7"]
@@ -7,6 +7,10 @@
 [ext_resource type="Script" path="res://Scripts/RayCast2D1.gd" id="4_fs60i"]
 [ext_resource type="Script" path="res://Scripts/RayCast2D2.gd" id="5_wo6xc"]
 [ext_resource type="Script" path="res://Scripts/RayCast2D3.gd" id="6_dvrvs"]
+[ext_resource type="AudioStream" uid="uid://baf604urkxuac" path="res://Audio/EnemyDeath.wav" id="8_aejhv"]
+[ext_resource type="AudioStream" uid="uid://bh56epp1lmkqe" path="res://Audio/Enemy3Hurt.wav" id="9_w8acw"]
+[ext_resource type="AudioStream" uid="uid://cyowdvu7qjare" path="res://Audio/Heal.wav" id="10_24a1p"]
+[ext_resource type="AudioStream" uid="uid://dhihorigtxc2o" path="res://Audio/bow.wav" id="11_s17x3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ilogb"]
 size = Vector2(6.25, 10)
@@ -147,6 +151,23 @@ offset_right = 11.0
 offset_bottom = 12.0
 show_percentage = false
 
+[node name="EnemyHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_w8acw")
+volume_db = -33.383
+
+[node name="bow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_s17x3")
+volume_db = -20.939
+
+[node name="EnemyDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_aejhv")
+volume_db = -32.74
+
+[node name="Heal" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_24a1p")
+volume_db = -8.345
+pitch_scale = 0.83
+
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="timeAlive" to="." method="_on_time_alive_timeout"]
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_melee_range_body_entered"]
@@ -158,3 +179,4 @@ show_percentage = false
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="ChaseTimer" to="." method="_on_chase_timer_timeout"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]
+[connection signal="finished" from="EnemyDeath" to="." method="_on_enemy_death_finished"]

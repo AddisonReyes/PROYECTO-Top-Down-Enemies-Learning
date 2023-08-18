@@ -4,6 +4,7 @@ class_name Enemy2
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var player = get_parent().get_node("Player")
 const ArrowPath = preload("res://Scenes/arrow.tscn")
+const HeartPath = preload("res://Scenes/heart.tscn")
 var rng = RandomNumberGenerator.new()
 
 const SPEED = 170.5
@@ -45,6 +46,7 @@ var attack_range = 0
 var melee_range = 0
 
 var mutation_rate = 0.5
+var heart_drop = 0.2
 
 var generation
 var weights
@@ -172,7 +174,7 @@ func update_state():
 
 			move_and_slide()
 	
-	if state == "AttackRange":
+	if state == "AttackRange" and player.alive:
 		player_position = player.position
 		$Node2D.look_at(player_position)
 		
@@ -199,6 +201,7 @@ func update_state():
 
 
 func take_damage(damage):
+	$EnemyHurt.play()
 	if canChase == false:
 		canChase = true
 		
@@ -214,15 +217,23 @@ func take_damage(damage):
 
 
 func death():
+	$EnemyDeath.play()
 	$CollisionShape2D.queue_free()
-	deactivate_shield()
 	alive = false
 	
 	self.hide()
+	
+	var num = rng.randf_range(0.0, 1.0)
+	if num < heart_drop:
+		var new_item = HeartPath.instantiate()
+		
+		new_item.position = self.position
+		get_parent().add_child(new_item)
 
 
 func heals(healPoints):
 	if health < maxHealth:
+		$Heal.play()
 		canHealAgain = false
 		health += healPoints
 		
@@ -244,6 +255,7 @@ func update_health():
 
 
 func shoot():
+	$bow.play()
 	var arrow = ArrowPath.instantiate()
 	get_parent().add_child(arrow)
 	
@@ -367,3 +379,8 @@ func _on_time_alive_timeout():
 
 	if health <= 0:
 		$timeAlive.autostart = false
+
+
+func _on_enemy_death_finished():
+	if mutate == false:
+		queue_free()
